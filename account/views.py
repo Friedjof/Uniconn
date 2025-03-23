@@ -6,10 +6,10 @@ from .forms import RegisterForm, LoginForm, VerifyForm
 
 # Create your views here.
 class LoginView(TemplateView):
-    template_name = 'account/login.html'
+    template_name = 'login.html'
 
 class RegisterView(TemplateView):
-    template_name = 'account/register.html'
+    template_name = 'register.html'
 
 class VerifyView(TemplateView):
-    template_name = 'account/verify.html'
+    template_name = 'verify.html'
