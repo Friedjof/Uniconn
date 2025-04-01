@@ -1,8 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
 from .forms import RegisterForm, LoginForm, VerifyForm
 
+
+def index_view(request):
+    if not request.user.is_authenticated:
+        return redirect('account:login')
+    return redirect('account:login')
 
 # Create your views here.
 class LoginView(TemplateView):
