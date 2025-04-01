@@ -1,7 +1,7 @@
 import random
 import string
 
-def gen_verification_code(length=6):
+def gen_verification_code(length=10):
     """
     Generate a random verification code of specified length using non-ambiguous characters.
     """
