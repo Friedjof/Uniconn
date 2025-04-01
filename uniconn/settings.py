@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'account'
+    'account',
+    'chat',
+    'room',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +54,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'uniconn.urls'
+
+AUTH_USER_MODEL = 'account.CustomUser'
 
 TEMPLATES_DIR = BASE_DIR / 'templates'
 
