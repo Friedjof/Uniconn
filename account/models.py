@@ -4,20 +4,19 @@ from django.db import models
 from .utils import gen_verification_code
 
 
-# Create your models here.
-class CustomUser(AbstractUser):
-    class Role(models.TextChoices):
-        ADMIN = "admin", "Admin"
-        MODERATOR = "moderator", "Moderator"
-        VERIFIED = "verified", "Verified"
-        USER = "user", "User"
-        GUEST = "guest", "Guest"
-        INACTIVE = "inactive", "Inactive"
+class UserRole(models.IntegerChoices):
+    INACTIVE = 1, "Inactive"
+    GUEST = 2, "Guest"
+    USER = 3, "User"
+    VERIFIED = 4, "Verified"
+    MODERATOR = 5, "Moderator"
+    ADMIN = 6, "Admin"
 
-    role = models.CharField(
-        max_length=10,
-        choices=Role.choices,
-        default=Role.USER,
+
+class CustomUser(AbstractUser):
+    role = models.IntegerField(
+        choices=UserRole.choices,
+        default=UserRole.USER,
     )
 
     verification_code = models.CharField(

@@ -1,0 +1,13 @@
+<div class="fade-effect">
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/chat/">Chat</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="/account/logout/">Logout</a></li>
+            {% else %}
+                <li><a href="/account/">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>

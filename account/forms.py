@@ -2,10 +2,21 @@ from django import forms
 
 
 class RegisterForm(forms.Form):
-    username = forms.CharField(max_length=100)
-    email = forms.EmailField()
-    password = forms.CharField(max_length=100, widget=forms.PasswordInput)
-    confirm_password = forms.CharField(max_length=100, widget=forms.PasswordInput)
+    username = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'})
+    )
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'E-Mail'})
+    )
+    password = forms.CharField(
+        max_length=100,
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'})
+    )
+    confirm_password = forms.CharField(
+        max_length=100,
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm Password'})
+    )
 
     def clean(self):
         cleaned_data = super().clean()
@@ -19,9 +30,14 @@ class RegisterForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField()
-    password = forms.CharField(max_length=100, widget=forms.PasswordInput)
+    username = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'})
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'})
+    )
 
 
 class VerifyForm(forms.Form):
-    code = forms.CharField(max_length=6)
+    code = forms.CharField(max_length=6, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Verification Code'}))
