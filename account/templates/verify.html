@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/verify.css' %}">
+{% endblock %}
+
+{% block title %}Verify Account{% endblock %}
+
+{% block content %}
+    <div class="verify">
+        <h2>Verify Your Account</h2>
+        <form method="post">
+              {% csrf_token %}
+              <div class="form-group">
+                  {{ form.code|add_class:"form-control" }}
+              </div>
+              <button type="submit" class="btn btn-primary">Verify</button>
+        </form>
+        <p class="center-text">Thank you for registering! One of our moderators will drop a note with your verification code into your mailbox in the next few days. Once you've got the code, you can enter it here.</p>
+    </div>
+{% endblock %}
