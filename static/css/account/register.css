@@ -1,4 +1,4 @@
-.login {
+.register {
     background-color: #000;
     padding: 20px;
     border-radius: 10px;
@@ -9,7 +9,7 @@
     color: white;
 }
 
-.login h2 {
+.register h2 {
     margin-top: 0;
     margin-bottom: 20px;
     font-size: 32px;
@@ -17,15 +17,15 @@
     color: white;
 }
 
-.login a {
+.register a {
     color: white;
 }
 
-.login .form-group {
+.register .form-group {
     margin-bottom: 15px;
 }
 
-.login .form-control {
+.register .form-control {
     width: calc(100% - 22px);
     padding: 10px;
     border: 1px solid #ccc;
@@ -34,7 +34,7 @@
     color: #000;
 }
 
-.login .btn-primary {
+.register .btn-primary {
     width: 100%;
     padding: 10px;
     border-radius: 4px;
@@ -45,7 +45,33 @@
     color: #fff;
 }
 
-.login .btn-primary:hover {
+.register .btn-primary:hover {
     background-color: #fff;
     color: #000;
+}
+
+.register .row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.register .form-group {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.form-check-input-container {
+    display: flex;
+    align-items: center;
+}
+
+.form-check-input-container label {
+    margin-right: 5px;
+}
+
+.form-check-input {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
 }

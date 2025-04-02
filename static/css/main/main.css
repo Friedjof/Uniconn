@@ -17,3 +17,13 @@ main {
     padding: 20px;
     margin-top: 50px;
 }
+
+.error {
+    background-color: #fff;
+    color: #000;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+}

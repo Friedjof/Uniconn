@@ -1,4 +1,7 @@
+import uuid
+
 from django.contrib.auth.models import AbstractUser
+from django.core.mail import send_mail
 from django.db import models
 
 from .utils import gen_verification_code
@@ -23,4 +26,36 @@ class CustomUser(AbstractUser):
         max_length=10,
         default=gen_verification_code,
         blank=True,
+        editable=False,
     )
+
+    def email_is_verified(self) -> bool:
+        return EmailVerification.objects.filter(user=self, verified=True).exists()
+
+    def tenant_is_verified(self) -> bool:
+        return self.role >= UserRole.VERIFIED
+
+
+class EmailVerification(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    verification_code = models.UUIDField(default=uuid.uuid4, editable=False)
+    verified = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def verify_user(self, user: CustomUser, code: str) -> bool:
+        if self.user == user and self.verification_code == code:
+            self.verified = True
+            self.save()
+            return True
+        return False
+
+    def send_verification_email(self):
+        subject = "Verify your email address"
+        message = f"Please use the following code to verify your email address: {self.verification_code}"
+        from_email = "Uniconn"
+        recipient_list = [self.user.email]
+        send_mail(subject, message, from_email, recipient_list)
+        print(f"Verification email sent to {self.user.email} with code {self.verification_code}")
+
+    def __str__(self):
+        return f"EmailVerification(user={self.user.username}, code={self.verification_code})"

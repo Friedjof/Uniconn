@@ -1,4 +1,4 @@
-.register {
+.login {
     background-color: #000;
     padding: 20px;
     border-radius: 10px;
@@ -9,7 +9,7 @@
     color: white;
 }
 
-.register h2 {
+.login h2 {
     margin-top: 0;
     margin-bottom: 20px;
     font-size: 32px;
@@ -17,15 +17,15 @@
     color: white;
 }
 
-.register a {
+.login a {
     color: white;
 }
 
-.register .form-group {
+.login .form-group {
     margin-bottom: 15px;
 }
 
-.register .form-control {
+.login .form-control {
     width: calc(100% - 22px);
     padding: 10px;
     border: 1px solid #ccc;
@@ -34,7 +34,7 @@
     color: #000;
 }
 
-.register .btn-primary {
+.login .btn-primary {
     width: 100%;
     padding: 10px;
     border-radius: 4px;
@@ -45,7 +45,7 @@
     color: #fff;
 }
 
-.register .btn-primary:hover {
+.login .btn-primary:hover {
     background-color: #fff;
     color: #000;
 }
