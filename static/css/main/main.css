@@ -2,6 +2,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    background-color: var(--primary-background-color);
 }
 
 body {
@@ -13,7 +14,25 @@ body {
 
 main {
     flex: 1;
-    color: black;
     padding: 20px;
     margin-top: 50px;
+}
+
+:root {
+    --primary-color: black;
+    --primary-text-color: white;
+    --primary-background-color: white;
+    --secondary-color: white;
+    --secondary-text-color: black;
+    --secondary-background-color: black;
+    --top-color: 255, 255, 255
+}
+
+[data-theme="dark"] {
+    --primary-color: white;
+    --primary-text-color: black;
+    --primary-background-color: black;
+    --secondary-color: black;
+    --secondary-text-color: white;
+    --secondary-background-color: white;
 }

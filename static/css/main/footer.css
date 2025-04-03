@@ -1,11 +1,11 @@
 footer {
-    color: white;
+    color: var(--primary-text-color);
     text-align: center;
     padding: 20px 0;
     position: relative;
     bottom: 0;
     width: calc(100% - 30px);
-    background-color: #000;
+    background-color: var(--secondary-background-color);
     margin: 0 15px;
     border-radius: 10px 10px 0 0;
 }
@@ -28,7 +28,7 @@ footer {
 }
 
 .footer-links a {
-    color: white;
+    color: var(--primary-text-color);
     text-decoration: none;
 }
 
