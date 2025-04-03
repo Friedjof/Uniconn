@@ -1,4 +1,5 @@
 import re
+import typing
 
 from django import forms
 from django.conf import settings
@@ -86,9 +87,9 @@ class RegisterForm(forms.Form):
     def save(self, commit=True) -> CustomUser:
         user = CustomUser(
             username=self.cleaned_data['username'],
-            email=self.cleaned_data['email'],
-            password=self.cleaned_data['password']
+            email=self.cleaned_data['email']
         )
+        user.set_password(self.cleaned_data['password'])
         if commit:
             user.save()
         return user
@@ -112,8 +113,34 @@ class LoginForm(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
+        user: CustomUser = CustomUser.objects.filter(
+            username=cleaned_data.get('email_or_username')
+        ).first() or CustomUser.objects.filter(
+            email=cleaned_data.get('email_or_username')
+        ).first()
+        if user and not user.check_password(cleaned_data.get('password')):
+            raise forms.ValidationError('Incorrect password.')
+        if user and not user.is_active:
+            raise forms.ValidationError('This account is inactive.')
         return cleaned_data
+
+    def get_user(self) -> typing.Optional[CustomUser]:
+        email_or_username = self.cleaned_data.get('email_or_username')
+        user = CustomUser.objects.filter(username=email_or_username).first() or CustomUser.objects.filter(email=email_or_username).first()
+        if user:
+            return user
+        return None
 
 
 class VerifyForm(forms.Form):
-    code = forms.CharField(max_length=6, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Verification Code'}))
+    code = forms.CharField(max_length=10, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Verification Code'}))
+
+
+class VerifyEmailForm(forms.Form):
+    code = forms.UUIDField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Verification Code'}))
+
+    def clean_code(self):
+        code = self.cleaned_data.get('code')
+        if not re.match(r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', str(code)):
+            raise forms.ValidationError('Invalid verification code format.')
+        return code

@@ -10,7 +10,7 @@
 
 {% block content %}
     <div class="verify">
-        <h2>Verify Your Account</h2>
+        <h2>Verify Your Email</h2>
         <form method="post">
               {% csrf_token %}
               <div class="form-group">
@@ -18,6 +18,13 @@
               </div>
               <button type="submit" class="btn btn-primary">Verify</button>
         </form>
-        <p class="center-text">Thank you for registering! One of our moderators will drop a note with your verification code into your mailbox in the next few days. Once you've got the code, you can enter it here.</p>
+        <p class="center-text">Thank you for registering! We have sent a verification code to your email address. Please enter the code here to verify your email.</p>
+        <div class="error-messages">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

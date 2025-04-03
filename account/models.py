@@ -1,10 +1,14 @@
 import uuid
+import logging
 
 from django.contrib.auth.models import AbstractUser
 from django.core.mail import send_mail
 from django.db import models
+from django.conf import settings
 
 from .utils import gen_verification_code
+
+logger = logging.getLogger('django')
 
 
 class UserRole(models.IntegerChoices):
@@ -43,19 +47,20 @@ class EmailVerification(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def verify_user(self, user: CustomUser, code: str) -> bool:
-        if self.user == user and self.verification_code == code:
+        if self.user == user and str(self.verification_code) == code:
             self.verified = True
             self.save()
             return True
         return False
 
     def send_verification_email(self):
+        if settings.EMAIL_HOST is None or settings.EMAIL_HOST == '':
+            logger.warning('Cannot send email, EMAIL_HOST is not set.')
         subject = "Verify your email address"
-        message = f"Please use the following code to verify your email address: {self.verification_code}"
-        from_email = "Uniconn"
+        message = f"Click this link to verify your email:\n{'https' if settings.TLS_ACTIVE else 'http'}://{settings.ALLOWED_HOSTS[0]}{':8000' if settings.DEBUG else ''}/account/email-verification/?code={self.verification_code}\nOr copy and paste this code: {self.verification_code}"
+        from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [self.user.email]
         send_mail(subject, message, from_email, recipient_list)
-        print(f"Verification email sent to {self.user.email} with code {self.verification_code}")
 
     def __str__(self):
-        return f"EmailVerification(user={self.user.username}, code={self.verification_code})"
+        return f"<EmailVerification: {self.user.username} - {self.verification_code} - {'Verified' if self.verified else 'Not Verified'}>"

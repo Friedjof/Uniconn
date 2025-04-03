@@ -19,5 +19,13 @@
               <button type="submit" class="btn btn-primary">Verify</button>
         </form>
         <p class="center-text">Thank you for registering! One of our moderators will drop a note with your verification code into your mailbox in the next few days. Once you've got the code, you can enter it here.</p>
+
+        <div class="error-messages">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

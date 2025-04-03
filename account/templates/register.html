@@ -50,9 +50,6 @@
         </form>
         <p>Do you already have an account? <a href="{% url 'account:login' %}">Login</a></p>
 
-        {% for error in form.non_field_errors %}
-            <div class="error">{{ error }}</div>
-        {% endfor %}
         <div class="error-messages">
             {% for field in form %}
                 {% for error in field.errors %}

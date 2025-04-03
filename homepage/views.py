@@ -11,7 +11,9 @@ class HomePageView(TemplateView):
         if not request.user.is_authenticated:
             return redirect('account:login')
         user: CustomUser = CustomUser.objects.get(id=request.user.id)
-        if user.role <= UserRole.USER:
+        if not user.email_is_verified():
+            return redirect('account:email_verification')
+        if not user.tenant_is_verified():
             return redirect('account:verify')
         return super().dispatch(request, *args, **kwargs)
 

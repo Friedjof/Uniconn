@@ -29,5 +29,18 @@ class CustomUserAdmin(UserAdmin):
     email_is_verified.short_description = 'Email Verified'
     tenant_is_verified.short_description = 'Tenant Verified'
 
-
 admin.site.register(CustomUser, CustomUserAdmin)
+
+# Register the EmailVerification model with the admin site
+class EmailVerificationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'verification_code', 'verified', 'created_at')
+    search_fields = ('user__username', 'user__email', 'verification_code')
+    list_filter = ('verified',)
+    ordering = ('-created_at',)
+
+    def user_email(self, obj):
+        return obj.user.email
+
+    user_email.short_description = 'User Email'
+
+admin.site.register(EmailVerification, EmailVerificationAdmin)
