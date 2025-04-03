@@ -3,13 +3,14 @@
 {% load widget_tweaks %}
 
 {% block head %}
-  <link rel="stylesheet" href="{% static 'css/account/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main/forms.css' %}">
+    <link rel="stylesheet" href="{% static 'css/account/login.css' %}">
 {% endblock %}
 
 {% block title %}Login{% endblock %}
 
 {% block content %}
-    <div class="login">
+    <div class="form-container login">
         <h2>Login</h2>
         <form method="post">
               {% csrf_token %}

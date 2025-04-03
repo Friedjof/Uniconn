@@ -3,13 +3,14 @@
 {% load widget_tweaks %}
 
 {% block head %}
-  <link rel="stylesheet" href="{% static 'css/account/verify_email.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main/forms.css' %}">
+    <link rel="stylesheet" href="{% static 'css/account/verify_email.css' %}">
 {% endblock %}
 
 {% block title %}Verify EMail{% endblock %}
 
 {% block content %}
-    <div class="verify">
+    <div class="form-container verify">
         <h2>Verify Your Email</h2>
         <form method="post">
               {% csrf_token %}
