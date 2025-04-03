@@ -20,6 +20,20 @@ class UserRole(models.IntegerChoices):
     ADMIN = 6, "Admin"
 
 
+class UserThemes(models.IntegerChoices):
+    ROSE_QUARTZ = 1, "rose-quartz"
+    ARCTIC_BLUE = 2, "arctic-blue"
+    COOL_LAVENDER = 3, "cool-lavender"
+    PASTEL_MINT = 4, "pastel-mint"
+    LINEN_LIGHT = 5, "linen-light"
+    CLASSIC_DARK = 6, "classic-dark"
+    MIDNIGHT_BLUE = 7, "midnight-blue"
+    CHARCOAL = 8, "charcoal"
+    GRAPHITE = 9, "graphite"
+    DUSK_MODE = 10, "dusk-mode"
+    CLASSIC = 11, "classic"
+
+
 class CustomUser(AbstractUser):
     role = models.IntegerField(
         choices=UserRole.choices,
@@ -31,6 +45,11 @@ class CustomUser(AbstractUser):
         default=gen_verification_code,
         blank=True,
         editable=False,
+    )
+
+    theme = models.IntegerField(
+        choices=UserThemes.choices,
+        default=UserThemes.CLASSIC,
     )
 
     def email_is_verified(self) -> bool:

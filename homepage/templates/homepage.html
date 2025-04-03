@@ -2,6 +2,10 @@
 {% load static %}
 {% load widget_tweaks %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/homepage/home.css' %}">
+{% endblock %}
+
 {% block title %}Homepage{% endblock %}
 
 {% block content %}

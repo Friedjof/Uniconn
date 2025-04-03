@@ -14,7 +14,7 @@ class CustomUserAdmin(UserAdmin):
         ('Persönliche Informationen', {'fields': ('first_name', 'last_name', 'email')}),
         ('Berechtigungen', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Wichtige Daten', {'fields': ('last_login', 'date_joined')}),
-        ('Zusätzliche Informationen', {'fields': ('role', 'verification_code')}),
+        ('Zusätzliche Informationen', {'fields': ('role', 'verification_code', 'theme')}),
     )
     readonly_fields = ('verification_code',)
 

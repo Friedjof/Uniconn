@@ -87,6 +87,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'homepage.context_processors.current_year',
                 'account.context_processors.min_password_length',
+                'account.context_processors.user_theme',
             ],
         },
     },
