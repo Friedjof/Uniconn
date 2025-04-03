@@ -138,9 +138,3 @@ class VerifyForm(forms.Form):
 
 class VerifyEmailForm(forms.Form):
     code = forms.UUIDField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Verification Code'}))
-
-    def clean_code(self):
-        code = self.cleaned_data.get('code')
-        if not re.match(r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', str(code)):
-            raise forms.ValidationError('Invalid verification code format.')
-        return code

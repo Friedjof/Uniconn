@@ -47,7 +47,7 @@ class EmailVerification(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def verify_user(self, user: CustomUser, code: str) -> bool:
-        if self.user == user and str(self.verification_code) == code:
+        if self.user == user and str(self.verification_code) == str(code):
             self.verified = True
             self.save()
             return True

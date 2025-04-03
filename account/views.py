@@ -116,6 +116,22 @@ class VerifyEmailView(TemplateView):
         context['form'] = VerifyEmailForm()
         return context
 
+    def post(self, request, *args, **kwargs):
+        form = VerifyEmailForm(self.request.POST)
+        if form.is_valid():
+            email_code = form.cleaned_data.get('code')
+            user: CustomUser = CustomUser.objects.get(id=self.request.user.id)
+            try:
+                email_verification = EmailVerification.objects.get(verification_code=email_code)
+                if email_verification.verify_user(user, email_code):
+                    return redirect('homepage:index')
+                else:
+                    form.add_error('code', 'Invalid verification code')
+            except EmailVerification.DoesNotExist:
+                form.add_error('code', 'Invalid verification code')
+
+        return render(self.request, self.template_name, {'form': form})
+
 
 class VerifyView(TemplateView):
     template_name = 'verify.html'
