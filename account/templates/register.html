@@ -28,6 +28,9 @@
                     {{ form.confirm_password|add_class:"form-control" }}
                 </div>
             </div>
+            {% if recapture_enabled %}
+                {{ form.captcha|add_class:"" }}
+            {% endif %}
             <p>
                 Make sure your <b>password</b> contains is at least <b>{{ min_password_length }} characters</b> long and includes:
             </p>

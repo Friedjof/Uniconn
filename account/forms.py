@@ -4,6 +4,9 @@ import typing
 from django import forms
 from django.conf import settings
 
+from django_recaptcha.fields import ReCaptchaField
+from django_recaptcha.widgets import ReCaptchaV2Invisible
+
 from .models import CustomUser
 
 
@@ -35,6 +38,8 @@ class RegisterForm(forms.Form):
         label_suffix='',
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
+
+    captcha = ReCaptchaField(widget=ReCaptchaV2Invisible)
 
     def clean_password(self):
         password = self.cleaned_data.get('password')

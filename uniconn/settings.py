@@ -31,6 +31,10 @@ TLS_ACTIVE = config('TLS_ACTIVE', default=True, cast=bool)
 
 MIN_PASSWORD_LENGTH = config('MIN_PASSWORD_LENGTH', cast=int, default=12)
 
+RECAPTURE_ENABLED = config('RECAPTCHA_ENABLED', default=True, cast=bool)
+RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
+
 
 # Authentication settings
 
@@ -50,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_recaptcha',
     'widget_tweaks',
 
     'homepage',
@@ -87,6 +92,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'homepage.context_processors.current_year',
                 'account.context_processors.min_password_length',
+                'account.context_processors.recapture_enabled',
             ],
         },
     },
