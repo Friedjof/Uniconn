@@ -86,7 +86,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
                 'homepage.context_processors.current_year',
+                'homepage.context_processors.version',
+
                 'account.context_processors.min_password_length',
                 'account.context_processors.user_theme',
                 'account.context_processors.user_theme_is_dark',

@@ -1,7 +1,7 @@
 footer {
     color: var(--primary-text-color);
     text-align: center;
-    padding: 20px 0;
+    padding: 5px 0;
     position: relative;
     bottom: 0;
     width: calc(100% - 30px);
@@ -16,6 +16,11 @@ footer {
     padding: 0;
 }
 
+.footer-content a {
+    color: var(--primary-text-color);
+    text-decoration: none;
+}
+
 .footer-links {
     list-style-type: none;
     padding: 0;
@@ -27,9 +32,13 @@ footer {
     margin: 0 10px;
 }
 
-.footer-links a {
+.footer-links .version {
+    margin-left: auto;
     color: var(--primary-text-color);
-    text-decoration: none;
+    border: 1px dashed var(--primary-text-color);
+    padding: 3px 6px;
+    border-radius: 8px;
+    transition: color 0.3s ease;
 }
 
 .footer-links a:hover {
