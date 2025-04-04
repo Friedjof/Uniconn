@@ -22,7 +22,7 @@ def user_theme_is_dark(request):
         user = CustomUser.objects.get(id=request.user.id)
         is_dark = UserThemes.is_dark(user.theme)
     else:
-        theme = request.session.get('theme')
+        theme = request.session.get('theme', 'classic')
         is_dark = UserThemes.is_dark(UserThemes.to_int(theme))
     return {
         'is_dark': is_dark

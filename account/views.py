@@ -32,21 +32,22 @@ def set_theme(request):
             user: CustomUser = CustomUser.objects.get(id=request.user.id)
             user.theme = UserThemes.to_int(theme)
             user.save()
-            return Response({'message': 'Theme updated successfully'}, status=status.HTTP_200_OK)
+            return Response({'message': 'Theme updated successfully', 'isDark': UserThemes.is_dark(UserThemes.to_int(theme))}, status=status.HTTP_200_OK)
         else:
             request.session['theme'] = theme
-            return Response({'message': 'Theme saved in session'}, status=status.HTTP_200_OK)
+            return Response({'message': 'Theme saved in session', 'isDark': UserThemes.is_dark(UserThemes.to_int(theme))}, status=status.HTTP_200_OK)
     return Response({'error': 'Invalid theme'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])
 def get_theme(request):
+    theme = "classic"
     if request.user.is_authenticated:
         user: CustomUser = CustomUser.objects.get(id=request.user.id)
-        return Response({'theme': UserThemes(user.theme).label}, status=status.HTTP_200_OK)
+        theme = UserThemes(user.theme).label
     else:
         theme = request.session.get('theme', 'classic')
-        return Response({'theme': theme}, status=status.HTTP_200_OK)
+    return Response({'theme': theme, 'isDark': UserThemes.is_dark(UserThemes.to_int(theme))}, status=status.HTTP_200_OK)
 
 
 class LoginView(TemplateView):

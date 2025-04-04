@@ -1,48 +1,57 @@
 document.addEventListener('DOMContentLoaded', function() {
     const themeToggle = document.getElementById('theme-toggle');
+    let isDarkTheme = false;
+    const firstIsDark = document.documentElement.getAttribute('data-is-dark') === 'True';
+    const firstTheme = document.documentElement.getAttribute('data-theme');
 
     // Funktion zum Abrufen des CSRF-Tokens
     function getCsrfToken() {
         return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     }
 
-    // Funktion zum Abrufen des Themas vom Server
     function fetchTheme() {
         fetch('/account/get/theme/')
             .then(response => response.json())
             .then(data => {
-                const savedTheme = data.theme;
-                document.documentElement.setAttribute('data-theme', savedTheme);
-                themeToggle.textContent = savedTheme === 'classic-dark' ? '🌜' : '🌞';
+                document.documentElement.setAttribute('data-theme', data.theme);
+                isDarkTheme = data.isDark;
+                themeToggle.textContent = isDarkTheme ? '🌜' : '🌞';
             })
             .catch(error => console.error('Error fetching theme:', error));
     }
 
-    // Funktion zum Setzen des Themas auf dem Server
     function updateTheme(newTheme) {
+        document.documentElement.setAttribute('data-theme', newTheme);
         fetch('/account/set/theme/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': getCsrfToken()
             },
-            body: JSON.stringify({ theme: newTheme })
+            body: JSON.stringify({ theme: newTheme, isDark: false })
         })
             .then(response => response.json())
+            .then(data => {
+                isDarkTheme = data.isDark;
+                themeToggle.textContent = isDarkTheme ? '🌜' : '🌞';
+            })
             .catch(error => console.error('Error updating theme:', error));
     }
 
-    // Beim Laden der Seite das gespeicherte Thema anwenden
     fetchTheme();
 
     if (themeToggle) {
         themeToggle.addEventListener('click', function() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'classic' ? 'classic-dark' : 'classic';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            updateTheme(newTheme); // Thema auf dem Server aktualisieren
+            let newTheme;
 
-            themeToggle.textContent = newTheme === 'classic-dark' ? '🌜' : '🌞';
+            if (firstIsDark) {
+                newTheme = currentTheme === firstTheme ? 'classic' : firstTheme;
+            } else {
+                newTheme = currentTheme === firstTheme ? 'classic-dark' : firstTheme;
+            }
+
+            updateTheme(newTheme);
         });
     } else {
         console.error('Element with ID "theme-toggle" not found.');
