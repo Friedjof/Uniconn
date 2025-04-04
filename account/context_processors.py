@@ -12,7 +12,18 @@ def user_theme(request):
         user = CustomUser.objects.get(id=request.user.id)
         theme = UserThemes(user.theme).label
     else:
-        theme = UserThemes.CLASSIC.label
+        theme = request.session.get('theme')
     return {
         'user_theme': theme
+    }
+
+def user_theme_is_dark(request):
+    if request.user.is_authenticated:
+        user = CustomUser.objects.get(id=request.user.id)
+        is_dark = UserThemes.is_dark(user.theme)
+    else:
+        theme = request.session.get('theme')
+        is_dark = UserThemes.is_dark(UserThemes.to_int(theme))
+    return {
+        'is_dark': is_dark
     }

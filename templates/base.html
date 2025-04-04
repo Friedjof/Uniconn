@@ -10,6 +10,12 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
+    <!-- Scripts -->
+    <script src="{% static 'js/main.js' %}"></script>
+
     <!-- Favicon, Fonts, Styles -->
     <link rel="stylesheet" href="{% static 'css/main/themes.css' %}">
     <link rel="stylesheet" href="{% static 'css/main/navbar.css' %}">

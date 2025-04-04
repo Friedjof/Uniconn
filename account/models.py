@@ -1,3 +1,4 @@
+import typing
 import uuid
 import logging
 
@@ -32,6 +33,25 @@ class UserThemes(models.IntegerChoices):
     GRAPHITE = 9, "graphite"
     DUSK_MODE = 10, "dusk-mode"
     CLASSIC = 11, "classic"
+
+    @classmethod
+    def has_value(cls, value):
+        return value in cls.get_choices()
+
+    @classmethod
+    def get_choices(cls) -> typing.List[str]:
+        return [choice[1] for choice in cls.choices]
+
+    @classmethod
+    def to_int(cls, value: str) -> typing.Optional[int]:
+        for choice in cls.choices:
+            if choice[1] == value:
+                return choice[0]
+        return None
+
+    @classmethod
+    def is_dark(cls, value: int) -> bool:
+        return 6 <= value <= 10
 
 
 class CustomUser(AbstractUser):

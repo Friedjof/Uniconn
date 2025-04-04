@@ -17,12 +17,16 @@ nav ul {
     padding: 0;
 }
 
-nav ul li {
+nav .left {
     float: left;
 }
 
-nav ul li:last-child {
+nav .right {
     float: right;
+}
+
+nav ul li {
+    display: inline-block;
 }
 
 nav ul li a {
@@ -45,4 +49,24 @@ nav ul li a:hover {
     top: 0;
     width: 100%;
     z-index: 999;
+}
+
+#theme-toggle {
+    background-color: var(--secondary-background-color);
+    color: var(--primary-text-color);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#theme-toggle:hover {
+    background-color: var(--primary-background-color);
+    color: var(--secondary-text-color);
 }

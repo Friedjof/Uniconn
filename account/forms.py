@@ -1,10 +1,11 @@
 import re
 import typing
+from random import choices
 
 from django import forms
 from django.conf import settings
 
-from .models import CustomUser
+from .models import CustomUser, UserThemes
 
 
 class RegisterForm(forms.Form):
@@ -138,3 +139,16 @@ class VerifyForm(forms.Form):
 
 class VerifyEmailForm(forms.Form):
     code = forms.UUIDField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Verification Code'}))
+
+
+class ThemeForm(forms.Form):
+    theme = forms.ChoiceField(
+        choices=UserThemes.choices,
+        widget=forms.Select(attrs={'class': 'form-select'})
+    )
+
+    def clean_theme(self):
+        theme = self.cleaned_data.get('theme')
+        if not UserThemes.has_value(theme):
+            raise forms.ValidationError('Invalid theme selected.')
+        return theme

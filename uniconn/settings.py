@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'widget_tweaks',
+    'rest_framework',
 
     'homepage',
     'account',
@@ -88,6 +89,7 @@ TEMPLATES = [
                 'homepage.context_processors.current_year',
                 'account.context_processors.min_password_length',
                 'account.context_processors.user_theme',
+                'account.context_processors.user_theme_is_dark',
             ],
         },
     },

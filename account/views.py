@@ -3,10 +3,13 @@ import re
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login, logout
-from django.db import models
 
-from .forms import RegisterForm, LoginForm, VerifyForm, VerifyEmailForm
-from .models import CustomUser, UserRole, EmailVerification
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+
+from .forms import RegisterForm, LoginForm, VerifyForm, VerifyEmailForm, ThemeForm
+from .models import CustomUser, UserRole, EmailVerification, UserThemes
 
 
 def index_view(request):
@@ -19,6 +22,31 @@ def logout_view(request):
     if request.user.is_authenticated:
         logout(request)
     return redirect('account:login')
+
+
+@api_view(['POST'])
+def set_theme(request):
+    theme = request.data.get('theme')
+    if theme and UserThemes.has_value(theme):
+        if request.user.is_authenticated:
+            user: CustomUser = CustomUser.objects.get(id=request.user.id)
+            user.theme = UserThemes.to_int(theme)
+            user.save()
+            return Response({'message': 'Theme updated successfully'}, status=status.HTTP_200_OK)
+        else:
+            request.session['theme'] = theme
+            return Response({'message': 'Theme saved in session'}, status=status.HTTP_200_OK)
+    return Response({'error': 'Invalid theme'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def get_theme(request):
+    if request.user.is_authenticated:
+        user: CustomUser = CustomUser.objects.get(id=request.user.id)
+        return Response({'theme': UserThemes(user.theme).label}, status=status.HTTP_200_OK)
+    else:
+        theme = request.session.get('theme', 'classic')
+        return Response({'theme': theme}, status=status.HTTP_200_OK)
 
 
 class LoginView(TemplateView):

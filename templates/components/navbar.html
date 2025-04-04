@@ -1,12 +1,22 @@
 <div class="fade-effect">
     <nav>
-        <ul>
+        <ul class="left">
             <li><a href="/">Home</a></li>
             <li><a href="/chat/">Chat</a></li>
+        </ul>
+        <ul class="right">
+            <li>
+                <button id="theme-toggle">{% if is_dark %}🌜{% else %}🌞{% endif %}</button>
+            </li>
             {% if user.is_authenticated %}
+                <li><a href="/account/profile/">Profil</a></li>
                 <li><a href="/account/logout/">Logout</a></li>
             {% else %}
-                <li><a href="/account/">Login</a></li>
+                {% if request.path == '/account/login/' %}
+                    <li><a href="/account/register/">Register</a></li>
+                {% else %}
+                    <li><a href="/account/login/">Login</a></li>
+                {% endif %}
             {% endif %}
         </ul>
     </nav>
