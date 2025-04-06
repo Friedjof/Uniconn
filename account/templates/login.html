@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/main/forms.css' %}">
     <link rel="stylesheet" href="{% static 'css/account/login.css' %}">
 {% endblock %}
 
-{% block title %}Login{% endblock %}
+{% block title %}{% trans "Login" %}{% endblock %}
 
 {% block content %}
     <div class="form-container login">
@@ -20,9 +21,9 @@
               <div class="form-group">
                   {{ form.password|add_class:"form-control" }}
               </div>
-              <button type="submit" class="btn btn-primary">Anmelden</button>
+              <button type="submit" class="btn btn-primary">{% trans "Login" %}</button>
         </form>
-        <p>No account yet? <a href="{% url 'account:register' %}">Register here</a></p>
+        <p>{% trans "No account yet?" %} <a href="{% url 'account:register' %}">{% trans "Register here" %}</a></p>
         <div class="error-messages">
             {% for field in form %}
                 {% for error in field.errors %}

@@ -1,10 +1,12 @@
+{% load i18n %}
+
 <footer>
     <div class="footer-content">
-        <p>&copy; {{ current_year }} <a href="https://github.com/Friedjof/Uniconn">Uniconn</a>. Because we’re better together.</p>
+        <p>&copy; {{ current_year }} <a href="https://github.com/Friedjof/Uniconn">Uniconn</a>. {% trans "Because we’re better together." %}</p>
         <ul class="footer-links">
-            <li><a href="#">Imprint</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#">{% trans "Imprint" %}</a></li>
+            <li><a href="#">{% trans "Privacy Policy" %}</a></li>
+            <li><a href="#">{% trans "Contact" %}</a></li>
             <li class="version"><a href="https://github.com/Friedjof/GlowLight/releases/tag/{{ version }}">{{ version }}</a></li>
         </ul>
     </div>

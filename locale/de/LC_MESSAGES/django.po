@@ -1,0 +1,133 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-06 18:40+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: account/forms.py:43
+msgid "Password must contain at least one special character."
+msgstr "Passwort muss mindestens ein Sonderzeichen enthalten."
+
+#: account/forms.py:45
+msgid "Password must contain at least one uppercase letter."
+msgstr "Passwort muss mindestens einen Großbuchstaben enthalten."
+
+#: account/forms.py:47
+msgid "Password must contain at least one digit."
+msgstr "Passwort muss mindestens eine Ziffer enthalten."
+
+#: account/forms.py:49
+msgid "Password must be at least 16 characters long."
+msgstr "Passwort muss mindestens 16 Zeichen lang sein."
+
+#: account/forms.py:55
+msgid "Username can only contain letters, numbers, underscores, and hyphens."
+msgstr ""
+"Benutzername darf nur Buchstaben, Zahlen, Unterstriche und Bindestriche "
+"enthalten."
+
+#: account/forms.py:57
+msgid "Username already exists."
+msgstr "Benutzername existiert bereits."
+
+#: account/forms.py:63
+msgid "Invalid email address."
+msgstr "Ungültige E-Mail-Adresse."
+
+#: account/forms.py:65
+msgid "This email address is already registered."
+msgstr "Diese E-Mail-Adresse ist bereits registriert."
+
+#: account/forms.py:71
+msgid "You must agree to the terms of service."
+msgstr "Sie müssen den Nutzungsbedingungen zustimmen."
+
+#: account/forms.py:77
+msgid "You must agree to the privacy policy."
+msgstr "Sie müssen der Datenschutzrichtlinie zustimmen."
+
+#: account/forms.py:85
+msgid "Passwords do not match."
+msgstr "Passwörter stimmen nicht überein."
+
+#: account/forms.py:102
+msgid "E-Mail or Username"
+msgstr "E-Mail oder Benutzername"
+
+#: account/forms.py:106
+msgid "Password"
+msgstr "Passwort"
+
+#: account/forms.py:112
+msgid "Username or email address does not exist."
+msgstr "Benutzername oder E-Mail-Adresse existiert nicht."
+
+#: account/forms.py:123
+msgid "Incorrect password."
+msgstr "Falsches Passwort."
+
+#: account/forms.py:125
+msgid "This account is inactive."
+msgstr "Dieses Konto ist inaktiv."
+
+#: account/forms.py:137 account/forms.py:141
+msgid "Verification Code"
+msgstr "Verifizierungscode"
+
+#: account/forms.py:153
+msgid "Invalid theme selected."
+msgstr "Ungültiges gewähltes Thema."
+
+#: account/templates/login.html:11 account/templates/login.html:24
+msgid "Login"
+msgstr "Anmelden"
+
+#: account/templates/login.html:26
+msgid "No account yet?"
+msgstr "Kein Konto?"
+
+#: account/templates/login.html:26
+msgid "Register here"
+msgstr "Hier registrieren"
+
+#: templates/components/footer.html:5
+msgid "Because we’re better together."
+msgstr "Weil wir zusammen besser sind."
+
+#: templates/components/footer.html:7
+msgid "Imprint"
+msgstr "Impressum"
+
+#: templates/components/footer.html:8
+msgid "Privacy Policy"
+msgstr "Datenschutz"
+
+#: templates/components/footer.html:9
+msgid "Contact"
+msgstr "Kontakt"
+
+#: uniconn/settings.py:45
+msgid "English"
+msgstr "Englisch"
+
+#: uniconn/settings.py:46
+msgid "German"
+msgstr "Deutsch"
+
+#: uniconn/settings.py:47
+msgid "Turkish"
+msgstr "Türkisch"
