@@ -1,18 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/homepage/home.css' %}">
 {% endblock %}
 
-{% block title %}Homepage{% endblock %}
+{% block title %}{% trans "Homepage" %}{% endblock %}
 
 {% block content %}
     <div class="homepage">
-        <h1>Welcome to the Homepage</h1>
-        <p>This is the main content area of the homepage.</p>
-        <p>Here you can add more information about your website or application.</p>
-        <p>Feel free to customize this template as per your requirements.</p>
+        <h1>{% trans "Welcome to the Homepage" %}</h1>
+        <p>{% trans "This is the main content area of the homepage." %}</p>
+        <p>{% trans "Here you can add more information about your website or application." %}</p>
+        <p>{% trans "Feel free to customize this template as per your requirements." %}</p>
     </div>
 {% endblock %}

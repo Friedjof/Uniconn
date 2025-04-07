@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-06 17:33+0200\n"
+"POT-Creation-Date: 2025-04-07 22:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,9 +17,223 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: account/forms.py:14
+msgid "Username"
+msgstr "Kullanıcı Adı"
+
+#: account/forms.py:17
+msgid "E-Mail"
+msgstr "E-posta"
+
+#: account/forms.py:21 account/forms.py:106
+msgid "Password"
+msgstr "ifre"
+
+#: account/forms.py:25
+msgid "Confirm Password"
+msgstr "ifreyi Onayla"
+
+#: account/forms.py:29 account/forms.py:35
+msgid "I agree to the"
+msgstr "katılıyorum"
+
+#: account/forms.py:43
+msgid "Password must contain at least one special character."
+msgstr "ifre en az bir özel karakter içermelidir."
+
+#: account/forms.py:45
+msgid "Password must contain at least one uppercase letter."
+msgstr "ifre en az bir büyük harf içermelidir."
+
+#: account/forms.py:47
+msgid "Password must contain at least one digit."
+msgstr "ifre en az bir rakam içermelidir."
+
+#: account/forms.py:49
+msgid "Password must be at least 16 characters long."
+msgstr "ifre en az 16 karakter uzunluğunda olmalıdır."
+
+#: account/forms.py:55
+msgid "Username can only contain letters, numbers, underscores, and hyphens."
+msgstr "Kullanıcı adı yalnızca harfler, sayılar, alt çizgiler ve tireler içerebilir."
+
+#: account/forms.py:57
+msgid "Username already exists."
+msgstr "Bu kullanıcı adı zaten mevcut."
+
+#: account/forms.py:63
+msgid "Invalid email address."
+msgstr "Geçersiz e-posta adresi."
+
+#: account/forms.py:65
+msgid "This email address is already registered."
+msgstr "Bu e-posta adresi zaten kayıtlı."
+
+#: account/forms.py:71
+msgid "You must agree to the terms of service."
+msgstr "artları kabul etmelisiniz."
+
+#: account/forms.py:77
+msgid "You must agree to the privacy policy."
+msgstr "Gizlilik politikasını kabul etmelisiniz."
+
+#: account/forms.py:85
+msgid "Passwords do not match."
+msgstr "ifreler eşleşmiyor."
+
+#: account/forms.py:102
+msgid "E-Mail or Username"
+msgstr "E-posta veya Kullanıcı Adı"
+
+#: account/forms.py:112
+msgid "Username or email address does not exist."
+msgstr "Kullanıcı adı veya e-posta adresi mevcut değil."
+
+#: account/forms.py:123
+msgid "Incorrect password."
+msgstr "Yanlış şifre."
+
+#: account/forms.py:125
+msgid "This account is inactive."
+msgstr "Bu hesap etkin değil."
+
+#: account/forms.py:137 account/forms.py:141
+msgid "Verification Code"
+msgstr "Doğrulama Kodu"
+
+#: account/forms.py:153
+msgid "Invalid theme selected."
+msgstr "Seçilen tema geçersiz."
+
+#: account/templates/login.html:11 account/templates/login.html:15
+#: account/templates/login.html:24 account/templates/register.html:68
+#: templates/components/navbar.html:20
+msgid "Login"
+msgstr "Giriş"
+
+#: account/templates/login.html:26
+msgid "No account yet?"
+msgstr "Henüz bir hesabınız yok mu?"
+
+#: account/templates/login.html:26
+msgid "Register here"
+msgstr "Buradan kaydolun"
+
+#: account/templates/register.html:11 account/templates/register.html:15
+#: templates/components/navbar.html:18
+msgid "Register"
+msgstr "Kaydol"
+
+#: account/templates/register.html:33
+#, python-format
+msgid ""
+"\n"
+"                Make sure your %(bold_start)spassword%(bold_end)s is at "
+"least %(bold_start)s%(min_len)s characters%(bold_end)s long and includes:\n"
+"            "
+msgstr ""
+"\n"
+"                Şifrenizin en az %(bold_start)s%(min_len)s karakterden "
+"%(bold_end)s uzunluğunda olduğundan emin olun ve şunları içermelidir:\n"
+"            "
+
+#: account/templates/register.html:40
+#, python-format
+msgid ""
+"\n"
+"                        Uppercase & lowercase letters %(bold_start)s(A-Z, a-"
+"z)%(bold_end)s\n"
+"                    "
+msgstr ""
+"\n"
+"                        Büyük ve küçük harfler %(bold_start)s(A-Z, a-"
+"z)%(bold_end)s\n"
+"                    "
+
+#: account/templates/register.html:45
+#, python-format
+msgid ""
+"\n"
+"                        Numbers %(bold_start)s(0-9)%(bold_end)s\n"
+"                    "
+msgstr ""
+"\n"
+"                        Sayılar %(bold_start)s(0-9)%(bold_end)s\n"
+"                    "
+
+#: account/templates/register.html:50
+#, python-format
+msgid ""
+"\n"
+"                        Special characters %(bold_start)s(!@#$"
+"%%^&*)%(bold_end)s\n"
+"                    "
+msgstr ""
+"\n"
+"                        Özel karakterler %(bold_start)s(!@#$"
+"%%^&*)%(bold_end)s\n"
+"                    "
+
+#: account/templates/register.html:58
+msgid "Terms of Service"
+msgstr "Gizlilik Sözleşmesi"
+
+#: account/templates/register.html:62 templates/components/footer.html:8
+msgid "Privacy Policy"
+msgstr "Gizlilik Politikası"
+
+#: account/templates/register.html:68
+msgid "Do you already have an account?"
+msgstr "Zaten bir hesabınız var mı?"
+
+#: homepage/templates/homepage.html:10
+msgid "Homepage"
+msgstr "Anasayfa"
+
+#: homepage/templates/homepage.html:14
+msgid "Welcome to the Homepage"
+msgstr "Anasayfaya Hoş Geldiniz"
+
+#: homepage/templates/homepage.html:15
+msgid "This is the main content area of the homepage."
+msgstr "Bu, ana sayfanın ana içerik alanıdır."
+
+#: homepage/templates/homepage.html:16
+msgid "Here you can add more information about your website or application."
+msgstr "Burada web siteniz veya uygulamanız hakkında daha fazla bilgi ekleyebilirsiniz."
+
+#: homepage/templates/homepage.html:17
+msgid "Feel free to customize this template as per your requirements."
+msgstr "Bu şablonu ihtiyaçlarınıza göre özelleştirmekten çekinmeyin."
+
 #: templates/components/footer.html:5
 msgid "Because we’re better together."
 msgstr "Çünkü birlikte daha iyiyiz."
+
+#: templates/components/footer.html:7
+msgid "Imprint"
+msgstr "İzlenim"
+
+#: templates/components/footer.html:9
+msgid "Contact"
+msgstr "İletişim"
+
+#: templates/components/navbar.html:6
+msgid "Home"
+msgstr "Anasayfa"
+
+#: templates/components/navbar.html:7
+msgid "Chat"
+msgstr "Sohbet"
+
+#: templates/components/navbar.html:14
+msgid "Profil"
+msgstr "Profil"
+
+#: templates/components/navbar.html:15
+msgid "Logout"
+msgstr "Çıkış"
 
 #: uniconn/settings.py:45
 msgid "English"

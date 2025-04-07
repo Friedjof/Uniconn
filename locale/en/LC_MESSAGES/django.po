@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-06 17:32+0200\n"
+"POT-Creation-Date: 2025-04-07 22:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,18 +17,217 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: account/forms.py:14
+msgid "Username"
+msgstr ""
+
+#: account/forms.py:17
+msgid "E-Mail"
+msgstr ""
+
+#: account/forms.py:21 account/forms.py:106
+msgid "Password"
+msgstr ""
+
+#: account/forms.py:25
+msgid "Confirm Password"
+msgstr ""
+
+#: account/forms.py:29 account/forms.py:35
+msgid "I agree to the"
+msgstr ""
+
+#: account/forms.py:43
+msgid "Password must contain at least one special character."
+msgstr ""
+
+#: account/forms.py:45
+msgid "Password must contain at least one uppercase letter."
+msgstr ""
+
+#: account/forms.py:47
+msgid "Password must contain at least one digit."
+msgstr ""
+
+#: account/forms.py:49
+msgid "Password must be at least 16 characters long."
+msgstr ""
+
+#: account/forms.py:55
+msgid "Username can only contain letters, numbers, underscores, and hyphens."
+msgstr ""
+
+#: account/forms.py:57
+msgid "Username already exists."
+msgstr ""
+
+#: account/forms.py:63
+msgid "Invalid email address."
+msgstr ""
+
+#: account/forms.py:65
+msgid "This email address is already registered."
+msgstr ""
+
+#: account/forms.py:71
+msgid "You must agree to the terms of service."
+msgstr ""
+
+#: account/forms.py:77
+msgid "You must agree to the privacy policy."
+msgstr ""
+
+#: account/forms.py:85
+msgid "Passwords do not match."
+msgstr ""
+
+#: account/forms.py:102
+msgid "E-Mail or Username"
+msgstr ""
+
+#: account/forms.py:112
+msgid "Username or email address does not exist."
+msgstr ""
+
+#: account/forms.py:123
+msgid "Incorrect password."
+msgstr ""
+
+#: account/forms.py:125
+msgid "This account is inactive."
+msgstr ""
+
+#: account/forms.py:137 account/forms.py:141
+msgid "Verification Code"
+msgstr ""
+
+#: account/forms.py:153
+msgid "Invalid theme selected."
+msgstr ""
+
+#: account/templates/login.html:11 account/templates/login.html:15
+#: account/templates/login.html:24 account/templates/register.html:68
+#: templates/components/navbar.html:20
+msgid "Login"
+msgstr ""
+
+#: account/templates/login.html:26
+msgid "No account yet?"
+msgstr ""
+
+#: account/templates/login.html:26
+msgid "Register here"
+msgstr ""
+
+#: account/templates/register.html:11 account/templates/register.html:15
+#: templates/components/navbar.html:18
+msgid "Register"
+msgstr ""
+
+#: account/templates/register.html:33
+#, python-format
+msgid ""
+"\n"
+"                Make sure your %(bold_start)spassword%(bold_end)s is at "
+"least %(bold_start)s%(min_len)s characters%(bold_end)s long and includes:\n"
+"            "
+msgstr ""
+
+#: account/templates/register.html:40
+#, python-format
+msgid ""
+"\n"
+"                        Uppercase & lowercase letters %(bold_start)s(A-Z, a-"
+"z)%(bold_end)s\n"
+"                    "
+msgstr ""
+
+#: account/templates/register.html:45
+#, python-format
+msgid ""
+"\n"
+"                        Numbers %(bold_start)s(0-9)%(bold_end)s\n"
+"                    "
+msgstr ""
+
+#: account/templates/register.html:50
+#, python-format
+msgid ""
+"\n"
+"                        Special characters %(bold_start)s(!@#$"
+"%%^&*)%(bold_end)s\n"
+"                    "
+msgstr ""
+
+#: account/templates/register.html:58
+msgid "Terms of Service"
+msgstr ""
+
+#: account/templates/register.html:62 templates/components/footer.html:8
+msgid "Privacy Policy"
+msgstr ""
+
+#: account/templates/register.html:68
+msgid "Do you already have an account?"
+msgstr ""
+
+#: homepage/templates/homepage.html:10
+msgid "Homepage"
+msgstr ""
+
+#: homepage/templates/homepage.html:14
+msgid "Welcome to the Homepage"
+msgstr ""
+
+#: homepage/templates/homepage.html:15
+msgid "This is the main content area of the homepage."
+msgstr ""
+
+#: homepage/templates/homepage.html:16
+msgid "Here you can add more information about your website or application."
+msgstr ""
+
+#: homepage/templates/homepage.html:17
+msgid "Feel free to customize this template as per your requirements."
+msgstr ""
+
 #: templates/components/footer.html:5
 msgid "Because we’re better together."
-msgstr "Because we’re better together."
+msgstr ""
+
+#: templates/components/footer.html:7
+msgid "Imprint"
+msgstr ""
+
+#: templates/components/footer.html:9
+msgid "Contact"
+msgstr ""
+
+#: templates/components/navbar.html:6
+msgid "Home"
+msgstr ""
+
+#: templates/components/navbar.html:7
+msgid "Chat"
+msgstr ""
+
+#: templates/components/navbar.html:14
+msgid "Profil"
+msgstr ""
+
+#: templates/components/navbar.html:15
+msgid "Logout"
+msgstr ""
 
 #: uniconn/settings.py:45
 msgid "English"
-msgstr "English"
+msgstr ""
 
 #: uniconn/settings.py:46
 msgid "German"
-msgstr "German"
+msgstr ""
 
 #: uniconn/settings.py:47
 msgid "Turkish"
-msgstr "Turkish"
+msgstr ""

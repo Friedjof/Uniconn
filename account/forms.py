@@ -11,28 +11,28 @@ from .models import CustomUser, UserThemes
 class RegisterForm(forms.Form):
     username = forms.CharField(
         max_length=100,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'})
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('Username')})
     )
     email = forms.EmailField(
-        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'E-Mail'})
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': _('E-Mail')})
     )
     password = forms.CharField(
         max_length=100,
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'})
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': _('Password')})
     )
     confirm_password = forms.CharField(
         max_length=100,
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm Password'})
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': _('Confirm Password')})
     )
     terms_of_service = forms.BooleanField(
         required=True,
-        label='I agree to the',
+        label=_('I agree to the'),
         label_suffix='',
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
     privacy_policy = forms.BooleanField(
         required=True,
-        label='I agree to the',
+        label=_('I agree to the'),
         label_suffix='',
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )

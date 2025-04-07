@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-06 18:40+0200\n"
+"POT-Creation-Date: 2025-04-07 22:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,26 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: account/forms.py:14
+msgid "Username"
+msgstr "E-Mail oder Benutzername"
+
+#: account/forms.py:17
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: account/forms.py:21 account/forms.py:106
+msgid "Password"
+msgstr "Passwort"
+
+#: account/forms.py:25
+msgid "Confirm Password"
+msgstr "Passwort bestätigen"
+
+#: account/forms.py:29 account/forms.py:35
+msgid "I agree to the"
+msgstr "Ich stimme zu:"
 
 #: account/forms.py:43
 msgid "Password must contain at least one special character."
@@ -68,10 +88,6 @@ msgstr "Passwörter stimmen nicht überein."
 msgid "E-Mail or Username"
 msgstr "E-Mail oder Benutzername"
 
-#: account/forms.py:106
-msgid "Password"
-msgstr "Passwort"
-
 #: account/forms.py:112
 msgid "Username or email address does not exist."
 msgstr "Benutzername oder E-Mail-Adresse existiert nicht."
@@ -92,7 +108,9 @@ msgstr "Verifizierungscode"
 msgid "Invalid theme selected."
 msgstr "Ungültiges gewähltes Thema."
 
-#: account/templates/login.html:11 account/templates/login.html:24
+#: account/templates/login.html:11 account/templates/login.html:15
+#: account/templates/login.html:24 account/templates/register.html:68
+#: templates/components/navbar.html:20
 msgid "Login"
 msgstr "Anmelden"
 
@@ -104,6 +122,95 @@ msgstr "Kein Konto?"
 msgid "Register here"
 msgstr "Hier registrieren"
 
+#: account/templates/register.html:11 account/templates/register.html:15
+#: templates/components/navbar.html:18
+msgid "Register"
+msgstr "Registrieren"
+
+#: account/templates/register.html:33
+#, python-format
+msgid ""
+"\n"
+"                Make sure your %(bold_start)spassword%(bold_end)s is at "
+"least %(bold_start)s%(min_len)s characters%(bold_end)s long and includes:\n"
+"            "
+msgstr ""
+"\n"
+"                Stellen Sie sicher, dass Ihr "
+"%(bold_start)spassword%(bold_end)s mindestens %(bold_start)s%(min_len)s "
+"Zeichen%(bold_end)s lang ist und Folgendes enthält:\n"
+"            "
+
+#: account/templates/register.html:40
+#, python-format
+msgid ""
+"\n"
+"                        Uppercase & lowercase letters %(bold_start)s(A-Z, a-"
+"z)%(bold_end)s\n"
+"                    "
+msgstr ""
+"\n"
+"                        Groß- und Kleinbuchstaben %(bold_start)s(A-Z, a-"
+"z)%(bold_end)s\n"
+"                    "
+
+#: account/templates/register.html:45
+#, python-format
+msgid ""
+"\n"
+"                        Numbers %(bold_start)s(0-9)%(bold_end)s\n"
+"                    "
+msgstr ""
+"\n"
+"                        Zahlen %(bold_start)s(0-9)%(bold_end)s\n"
+"                    "
+
+#: account/templates/register.html:50
+#, python-format
+msgid ""
+"\n"
+"                        Special characters %(bold_start)s(!@#$"
+"%%^&*)%(bold_end)s\n"
+"                    "
+msgstr ""
+"\n"
+"                        Sonderzeichen %(bold_start)s(!@#$%%^&*)%(bold_end)s\n"
+"                    "
+
+#: account/templates/register.html:58
+msgid "Terms of Service"
+msgstr "Nutzungsbedingungen"
+
+#: account/templates/register.html:62 templates/components/footer.html:8
+msgid "Privacy Policy"
+msgstr "Datenschutz"
+
+#: account/templates/register.html:68
+msgid "Do you already have an account?"
+msgstr "Haben Sie bereits ein Konto?"
+
+#: homepage/templates/homepage.html:10
+#, fuzzy
+#| msgid "Home"
+msgid "Homepage"
+msgstr "Startseite"
+
+#: homepage/templates/homepage.html:14
+msgid "Welcome to the Homepage"
+msgstr "Willkommen auf der Startseite"
+
+#: homepage/templates/homepage.html:15
+msgid "This is the main content area of the homepage."
+msgstr "Dies ist der Hauptinhalt der Startseite."
+
+#: homepage/templates/homepage.html:16
+msgid "Here you can add more information about your website or application."
+msgstr "Hier können Sie weitere Informationen zu Ihrer Website oder Anwendung "
+
+#: homepage/templates/homepage.html:17
+msgid "Feel free to customize this template as per your requirements."
+msgstr "Fühlen Sie sich frei, diese Vorlage nach Ihren Anforderungen anzupassen."
+
 #: templates/components/footer.html:5
 msgid "Because we’re better together."
 msgstr "Weil wir zusammen besser sind."
@@ -112,13 +219,25 @@ msgstr "Weil wir zusammen besser sind."
 msgid "Imprint"
 msgstr "Impressum"
 
-#: templates/components/footer.html:8
-msgid "Privacy Policy"
-msgstr "Datenschutz"
-
 #: templates/components/footer.html:9
 msgid "Contact"
 msgstr "Kontakt"
+
+#: templates/components/navbar.html:6
+msgid "Home"
+msgstr "Startseite"
+
+#: templates/components/navbar.html:7
+msgid "Chat"
+msgstr "Chat"
+
+#: templates/components/navbar.html:14
+msgid "Profil"
+msgstr "Profil"
+
+#: templates/components/navbar.html:15
+msgid "Logout"
+msgstr "Abmelden"
 
 #: uniconn/settings.py:45
 msgid "English"

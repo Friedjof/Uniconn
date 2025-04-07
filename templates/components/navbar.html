@@ -1,21 +1,23 @@
+{% load i18n %}
+
 <div class="fade-effect">
     <nav>
         <ul class="left">
-            <li><a href="/">Home</a></li>
-            <li><a href="/chat/">Chat</a></li>
+            <li><a href="{% url 'homepage:index' %}">{% trans "Home" %}</a></li>
+            <li><a href="/chat/">{% trans "Chat" %}</a></li>
         </ul>
         <ul class="right">
             <li>
                 <button id="theme-toggle">{% if is_dark %}🌜{% else %}🌞{% endif %}</button>
             </li>
             {% if user.is_authenticated %}
-                <li><a href="/account/profile/">Profil</a></li>
-                <li><a href="/account/logout/">Logout</a></li>
+                <li><a href="/account/profile/">{% trans "Profil" %}</a></li>
+                <li><a href="{% url 'account:logout' %}">{% trans "Logout" %}</a></li>
             {% else %}
-                {% if request.path == '/account/login/' %}
-                    <li><a href="/account/register/">Register</a></li>
+                {% if '/account/login/' in request.path %}
+                    <li><a href="{% url 'account:register' %}">{% trans "Register" %}</a></li>
                 {% else %}
-                    <li><a href="/account/login/">Login</a></li>
+                    <li><a href="{% url 'account:login' %}">{% trans "Login" %}</a></li>
                 {% endif %}
             {% endif %}
         </ul>
