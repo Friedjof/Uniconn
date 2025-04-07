@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from .forms import RegisterForm, LoginForm, VerifyForm, VerifyEmailForm, ThemeForm
+from .forms import RegisterForm, LoginForm, VerifyForm, VerifyEmailForm, ThemeForm, ProfileForm
 from .models import CustomUser, UserRole, EmailVerification, UserThemes
 
 
@@ -192,4 +192,35 @@ class VerifyView(TemplateView):
             else:
                 form.add_error('code', 'Invalid verification code')
 
+        return render(request, self.template_name, {'form': form})
+
+
+class ProfileView(TemplateView):
+    template_name = 'profile.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('account:login')
+        user: CustomUser = CustomUser.objects.get(id=request.user.id)
+        if not user.email_is_verified():
+            return redirect('account:email_verification')
+        if not user.tenant_is_verified():
+            return redirect('account:verify')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ProfileForm(instance=self.request.user)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = ProfileForm(request.POST, instance=self.request.user)
+        if form.is_valid():
+            user = form.save(commit=False)
+            password = form.cleaned_data.get('password')
+            confirm_password = form.cleaned_data.get('confirm_password')
+            if password and password == confirm_password:
+                user.set_password(password)
+            user.save()
+            return redirect('homepage:index')
         return render(request, self.template_name, {'form': form})

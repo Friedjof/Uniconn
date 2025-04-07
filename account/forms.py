@@ -1,11 +1,12 @@
 import re
+import uuid
 import typing
 
 from django import forms
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
-from .models import CustomUser, UserThemes
+from .models import CustomUser, UserThemes, EmailVerification
 
 
 class RegisterForm(forms.Form):
@@ -152,3 +153,55 @@ class ThemeForm(forms.Form):
         if not UserThemes.has_value(theme):
             raise forms.ValidationError(_('Invalid theme selected.'))
         return theme
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('Username')}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': _('E-Mail')}),
+        }
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if not re.match(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', email):
+            raise forms.ValidationError(_('Invalid email address.'))
+        if CustomUser.objects.filter(email=email).exclude(id=self.instance.id).exists():
+            raise forms.ValidationError(_('This email address is already registered.'))
+
+        if email.lower() != self.instance.email.lower():
+            email_verification = EmailVerification.objects.filter(user=self.instance).first()
+            if email_verification:
+                email_verification.verification_code = uuid.uuid4()
+                email_verification.verified = False
+            else:
+                email_verification = EmailVerification(
+                    user=self.instance,
+                    verification_code=uuid.uuid4(),
+                    verified=False
+                )
+            email_verification.save()
+            email_verification.send_verification_email()
+
+        return email
+
+
+class ResetPasswordForm(forms.Form):
+    password = forms.PasswordInput(
+        attrs={'class': 'form-control', 'placeholder': _('New Password')}
+    )
+    confirm_password = forms.PasswordInput(
+        attrs={'class': 'form-control', 'placeholder': _('Confirm New Password')}
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        confirm_password = cleaned_data.get('confirm_password')
+
+        if password and confirm_password and password != confirm_password:
+            raise forms.ValidationError(_('Passwords do not match.'))
+
+        return cleaned_data
