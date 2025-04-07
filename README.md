@@ -2,6 +2,13 @@
 
 This project is to develop a smart communication platform that verifies residents and connects apartments within your dormitory. Simplifies messaging, interactions, and neighbour-to-neighbour networking.
 
+## Setup Uniconn as Docker Container
+1. Build the Docker image
+
+```bash
+docker compose build
+```
+
 ## Setup Environment
 
 1. Check if config exist using ``` git config user.name``` and ```git config user.email```.
