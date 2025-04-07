@@ -9,6 +9,8 @@
         <ul class="right">
             <li>
                 <button id="theme-toggle">{% if is_dark %}🌜{% else %}🌞{% endif %}</button>
+                <div style="display: none;" id="set_theme_url">{% url 'account:set_theme' %}</div>
+                <div style="display: none;" id="get_theme_url">{% url 'account:get_theme' %}</div>
             </li>
             {% if user.is_authenticated %}
                 <li><a href="/account/profile/">{% trans "Profil" %}</a></li>

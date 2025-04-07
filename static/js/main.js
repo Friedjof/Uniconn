@@ -4,13 +4,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const firstIsDark = document.documentElement.getAttribute('data-is-dark') === 'True';
     const firstTheme = document.documentElement.getAttribute('data-theme');
 
+    const get_theme_url = document.getElementById('get_theme_url').textContent;
+    const set_theme_url = document.getElementById('set_theme_url').textContent;
+
     // Funktion zum Abrufen des CSRF-Tokens
     function getCsrfToken() {
         return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     }
 
     function fetchTheme() {
-        fetch('/account/get/theme/')
+        fetch(get_theme_url)
             .then(response => response.json())
             .then(data => {
                 document.documentElement.setAttribute('data-theme', data.theme);
@@ -22,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateTheme(newTheme) {
         document.documentElement.setAttribute('data-theme', newTheme);
-        fetch('/account/set/theme/', {
+        fetch(set_theme_url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
