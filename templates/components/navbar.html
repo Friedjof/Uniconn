@@ -13,7 +13,9 @@
                 <div style="display: none;" id="get_theme_url">{% url 'account:get_theme' %}</div>
             </li>
             {% if user.is_authenticated %}
-                <li><a href="{% url 'account:profile' %}">{% trans "Profil" %}</a></li>
+                {% if 'account/profile' not in request.path %}
+                    <li><a href="{% url 'account:profile' %}">{% trans "Profil" %}</a></li>
+                {% endif %}
                 <li><a href="{% url 'account:logout' %}">{% trans "Logout" %}</a></li>
             {% else %}
                 {% if '/account/login/' in request.path %}
