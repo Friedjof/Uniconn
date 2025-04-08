@@ -95,8 +95,9 @@ class EmailVerification(models.Model):
     def send_verification_email(self):
         if settings.EMAIL_HOST is None or settings.EMAIL_HOST == '':
             logger.warning('Cannot send email, EMAIL_HOST is not set.')
+            return None
         subject = "Verify your email address"
-        message = f"Click this link to verify your email:\n{'https' if settings.TLS_ACTIVE else 'http'}://{settings.ALLOWED_HOSTS[0]}{':8000' if settings.DEBUG else ''}/account/email-verification/?code={self.verification_code}\nOr copy and paste this code: {self.verification_code}"
+        message = f"Click this link to verify your email:\n{'https' if settings.TLS_ACTIVE else 'http'}://{settings.ALLOWED_HOSTS[0]}{':8000' if settings.DEBUG else ''}/account/email-verification?code={self.verification_code}\nOr copy and paste this code: {self.verification_code}"
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [self.user.email]
         send_mail(subject, message, from_email, recipient_list)
