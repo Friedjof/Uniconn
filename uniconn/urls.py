@@ -22,5 +22,7 @@ from django.conf.urls.i18n import i18n_patterns
 urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('account/', include(('account.urls', 'account'), namespace='account')),
+    path('select2/', include("django_select2.urls")),
+    path('room/', include(('room.urls', 'room'), namespace='room')),
     path('', include(('homepage.urls', 'templates'), namespace='templates')),
 )

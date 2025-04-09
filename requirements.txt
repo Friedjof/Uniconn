@@ -1,6 +1,8 @@
 asgiref==3.8.1
 Django==5.2
+django-appconf==1.1.0
 django-recaptcha==4.1.0
+django-select2==8.4.0
 django-widget-tweaks==1.5.0
 djangorestframework==3.16.0
 dotenv==0.9.9

@@ -71,6 +71,7 @@ INSTALLED_APPS = [
 
     'widget_tweaks',
     'rest_framework',
+    'django_select2',
 
     'homepage',
     'account',
@@ -141,6 +142,27 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000,
+            'CULL_FREQUENCY': 3,
+        }
+    },
+    'select2': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'select2-cache',
+        'OPTIONS': {
+            'MAX_ENTRIES': 500,
+            'CULL_FREQUENCY': 2,
+        }
+    }
+}
+
+SELECT2_CACHE_BACKEND = "select2"
 
 
 # Password validation
