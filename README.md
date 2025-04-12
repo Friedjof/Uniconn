@@ -1,10 +1,19 @@
 # Uniconn
 
-This project is to develop a smart communication platform that verifies residents and connects apartments within your dormitory. Simplifies messaging, interactions, and neighbour-to-neighbour networking.
+## Project's idea: this project is to develop a smart communication platform that verifies residents and connects apartments within your dormitory. Simplifies messaging, interactions, and neighbour-to-neighbour networking.
+## Project's structure: the project is structured as a Django web application with multiple apps, each handling specific functionalities:
+- The account app manages user authentication and profiles, 
+- The chat app handles real-time messaging. 
+- The homepage app serves the main landing page
+- The room app likely manages chat rooms or similar features. 
+- Shared templates and static files (CSS, JS) are organized under templates and static, respectively, with reusable components like the navbar and footer. 
+- The uniconn directory contains project-wide settings and configurations
+- The locale folder supports internationalization with translations for multiple languages.
 
-## Setup Environment
 
-1. Check if config exist using ``` git config user.name``` and ```git config user.email```.
+## - Setup Environment (Linux)
+
+1. Check if config exists using ``` git config user.name``` and ```git config user.email```.
    * If suits your preferred user info, check for the public key using ```cat ~/.ssh/id_rsa.pub```.
      * If exists,  in github Settings &rarr; SSH and GPG key (under Access) &rarr; New SSH key&rarr; Copy the key from id_rsa.pub above and paste it to the key section.
      * If not exists, generate it using ```ssh-keygen -t rsa -b 4096```.
@@ -49,9 +58,9 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-## Setup Environment (Windows, PyCharm)
+## - Setup Environment (Windows, PyCharm)
 
-1. Check if config exist using ``` git config user.name``` and ```git config user.email```.
+1. Check if config exists using ``` git config user.name``` and ```git config user.email```.
     * If suits your preferred user info, check for the public key using ```cat ~/.ssh/id_rsa.pub```.
         * If exists,  in github Settings &rarr; SSH and GPG key (under Access) &rarr; New SSH key&rarr; Copy the key from id_rsa.pub above and paste it to the key section.
         * If not exists, generate it using ```ssh-keygen -t rsa -b 4096```.
