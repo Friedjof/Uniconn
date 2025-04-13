@@ -8,7 +8,7 @@ The project is structured as a Django web application with multiple apps, each h
 - The account app manages user authentication and profiles
 - The chat app handles real-time messaging.
 - The homepage app serves the main landing page
-- The room app likely manages chat rooms or similar features 
+- The room app likely manages chat rooms or similar features
 - Shared templates and static files (CSS, JS) are organized under their respective folders, with reusable components like the navbar and footer
 - The uniconn directory contains project-wide settings and configurations
 - The locale folder supports internationalization with translations for multiple languages.
@@ -16,9 +16,9 @@ The project is structured as a Django web application with multiple apps, each h
 ## - Setup Environment (Linux)
 
 1. Check if config exists using ``` git config user.name``` and ```git config user.email```.
-   * If suits your preferred user info, check for the public key using ```cat ~/.ssh/id_rsa.pub```.
-     * If exists,  in github Settings &rarr; SSH and GPG key (under Access) &rarr; New SSH key&rarr; Copy the key from id_rsa.pub above and paste it to the key section.
-     * If not exists, generate it using ```ssh-keygen -t rsa -b 4096```.
+    * If suits your preferred user info, check for the public key using ```cat ~/.ssh/id_rsa.pub```.
+        * If exists,  in github Settings &rarr; SSH and GPG key (under Access) &rarr; New SSH key&rarr; Copy the key from id_rsa.pub above and paste it to the key section.
+        * If not exists, generate it using ```ssh-keygen -t rsa -b 4096```.
 
 2. Clone repository
 
@@ -29,7 +29,7 @@ cd Uniconn
 
 3. Create and activate a virtual environment
 
-  * To check any python venv exist ```dpkg -l | grep python3.*-venv```, if exist do following
+* To check any python venv exist ```dpkg -l | grep python3.*-venv```, if exist do following
 
 ```bash
 python3 -m venv .venv
@@ -68,14 +68,14 @@ python manage.py runserver
         * If not exists, generate it using ```ssh-keygen -t rsa -b 4096```.
 
 
-2. Clone repository [[1](#windows_clone_repo)]
+2. Clone repository [Jump to Windows Clone Repo](#windows_clone_repo)
 
 ```bash
 git clone git@github.com:Friedjof/Uniconn.git
 cd Uniconn
 ```
 
-3. Create and activate a virtual environment [[2](#windows_venv_activation)]
+3. Create and activate a virtual environment [Jump to venv creation](#windows_clone_repo)
 
 Important thing to notice: use local Python interpreter's path on your Windows machine (in my case it is "py").
 In the ".venv" folder there are several folders, the one we need is Scripts, which has the "activate" script in order to activate our environment.
@@ -133,51 +133,31 @@ We are then redirected to the current main page, which features a login form. [[
 
 ## Windows Gallery
 
-<style>
-/* Only highlight a figure if it’s the current anchor target */
-figure:target {
-  outline: 3px solid #007BFF;  /* or your highlight color */
-  padding: 5px;
-  background-color: #f0f8ff;
-}
-</style>
+
+<table>
+  <tr>
+    <td id="windows_clone_repo">
+      <img src="static/readme/windows_clone_repo.png" alt="Windows Clone Repo" />
+    </td>
+    <td id="windows_venv_activation">
+      <img src="static/readme/windows_venv_activation.png" alt="Windows venv activation">
+    </td>
+    <td id="windows_install_dependencies">
+        <img src="static/readme/windows_install_dependencies.png" alt="Windows Install Dependencies">
+    </td>
+    <td id="windows_env_file_creation_1">
+        <img src="static/readme/windows_env_file_creation_1.png" alt="Windows .env File Creation 1">
+    </td>
+    <td id="windows_env_file_creation_2">
+        <img src="static/readme/windows_env_file_creation_2.png" alt="Windows .env File Creation 2">
+    </td>
+    <td id="windows_runserver">
+        <img src="static/readme/windows_runserver.png" alt="Windows runserver">
+    </td>
+    <td id="windows_server_online">
+        <img src="static/readme/windows_server_online.png" alt="Windows server online">
+    </td>
+  </tr>
+</table>
 
 
-<div style="display: flex; flex-wrap: wrap; gap: 1rem;">
-
-  <figure id="windows_clone_repo" style="width: 300px; margin: 0;">
-    <img src="static/readme/windows_clone_repo.png" alt="Windows Clone Repo" style="max-width: 100%;" />
-    <figcaption>Windows Clone Repo</figcaption>
-  </figure>
-
-  <figure id="windows_venv_activation" style="width: 300px; margin: 0;">
-    <img src="static/readme/windows_venv_activation.png" alt="Windows venv activation" style="max-width: 100%;" />
-    <figcaption>Windows venv activation</figcaption>
-  </figure>
-
-  <figure id="windows_env_file_creation_1" style="width: 300px; margin: 0;">
-    <img src="static/readme/windows_env_file_creation_1.png" alt="Windows Env File Creation 1" style="max-width: 100%;" />
-    <figcaption>Windows Env File Creation #1</figcaption>
-  </figure>
-
-  <figure id="windows_env_file_creation_2" style="width: 300px; margin: 0;">
-    <img src="static/readme/windows_env_file_creation_2.png" alt="Windows Env File Creation 2" style="max-width: 100%;" />
-    <figcaption>Windows Env File Creation #2</figcaption>
-  </figure>
-
-  <figure id="windows_install_dependencies" style="width: 300px; margin: 0;">
-    <img src="static/readme/windows_install_dependencies.png" alt="Windows Install Dependencies" style="max-width: 100%;" />
-    <figcaption>Windows Install Dependencies</figcaption>
-  </figure>
-
-  <figure id="windows_runserver" style="width: 300px; margin: 0;">
-    <img src="static/readme/windows_runserver.png" alt="Windows runserver" style="max-width: 100%;" />
-    <figcaption>Windows runserver</figcaption>
-  </figure>
-
-  <figure id="windows_server_online" style="width: 300px; margin: 0;">
-    <img src="static/readme/windows_server_online.png" alt="Windows server online" style="max-width: 100%;" />
-    <figcaption>Windows server online</figcaption>
-  </figure>
-
-</div>
