@@ -1,15 +1,17 @@
 # Uniconn
 
-## Project's idea: this project is to develop a smart communication platform that verifies residents and connects apartments within your dormitory. Simplifies messaging, interactions, and neighbour-to-neighbour networking.
-## Project's structure: the project is structured as a Django web application with multiple apps, each handling specific functionalities:
-- The account app manages user authentication and profiles, 
-- The chat app handles real-time messaging. 
+## Project's idea.
+This project is to develop a smart communication platform that verifies residents and connects apartments within your dormitory. Simplifies messaging, interactions, and neighbour-to-neighbour networking.
+
+## Project's structure.
+The project is structured as a Django web application with multiple apps, each handling specific functionalities:
+- The account app manages user authentication and profiles
+- The chat app handles real-time messaging.
 - The homepage app serves the main landing page
-- The room app likely manages chat rooms or similar features. 
-- Shared templates and static files (CSS, JS) are organized under templates and static, respectively, with reusable components like the navbar and footer. 
+- The room app likely manages chat rooms or similar features 
+- Shared templates and static files (CSS, JS) are organized under their respective folders, with reusable components like the navbar and footer
 - The uniconn directory contains project-wide settings and configurations
 - The locale folder supports internationalization with translations for multiple languages.
-
 
 ## - Setup Environment (Linux)
 
@@ -65,15 +67,17 @@ python manage.py runserver
         * If exists,  in github Settings &rarr; SSH and GPG key (under Access) &rarr; New SSH key&rarr; Copy the key from id_rsa.pub above and paste it to the key section.
         * If not exists, generate it using ```ssh-keygen -t rsa -b 4096```.
 
-2. Clone repository
 
-![Clone repo](/static/readme/windows_clone_repo.png)
+2. Clone repository [[1](#windows_clone_repo)]
 
-3. Create and activate a virtual environment
+```bash
+git clone git@github.com:Friedjof/Uniconn.git
+cd Uniconn
+```
 
-![Virtual environment creation and activation](/static/readme/windows_venv_activation.png)
+3. Create and activate a virtual environment [[2](#windows_venv_activation)]
 
-Important thing to notice: the path to your Python interpreter on your Windows machine (in my case it is "py").
+Important thing to notice: use local Python interpreter's path on your Windows machine (in my case it is "py").
 In the ".venv" folder there are several folders, the one we need is Scripts, which has the "activate" script in order to activate our environment.
 After the virtual environment is created, the interpreter can be called with the default "python".
 
@@ -82,21 +86,17 @@ python3 -m venv .venv
 .venv/bin/activate
 ```
 
-4. Install dependencies
-
-![Install dependencies](/static/readme/windows_install_dependencies.png)
+4. Install dependencies [[3](#windows_install_dependencies)]
 
 ```bash
 pip install -r requirements.txt
 ```
 
-5. Apply database migrations
+5. Apply database migrations [[4](#windows_env_file_creation_1)]
 
 In order to be able to migrate and also start the server, an .env file is needed, which has the needed configurations for the django server.
 
-![.env file creation (creating the file)](/static/readme/windows_env_file_creation_1.png)
-
-These are the contents of the .env file:
+These are the contents of the .env file [[5](#windows_env_file_creation_2)]:
 
 ```
 SECRET_KEY="django-insecure-uv4+tp#wrhny7$3d+e^aqj3gxkz-1d3vb14@+e)p2$797@57%o"
@@ -116,11 +116,7 @@ EMAIL_HOST_USER='some_email'
 EMAIL_HOST_PASSWORD='some_password'
 ```
 
-![.env file creation (in file)](/static/readme/windows_env_file_creation_2.png)
-
-6. Start the development server
-
-![Starting the Django server](/static/readme/windows_runserver.png)
+6. Start the development server [[6](#windows_runserver)]
 
 ```bash
 python manage.py runserver
@@ -132,7 +128,56 @@ In order to check the server's status, we enter the listed address and port:
 http://127.0.0.1:8000/
 ```
 
-We are then redirected to the current main page, which features a login form.
+We are then redirected to the current main page, which features a login form. [[7](#windows_server_online)]
 
-![Checking the server's page](/static/readme/windows_server_online.png)
 
+## Windows Gallery
+
+<style>
+/* Only highlight a figure if it’s the current anchor target */
+figure:target {
+  outline: 3px solid #007BFF;  /* or your highlight color */
+  padding: 5px;
+  background-color: #f0f8ff;
+}
+</style>
+
+
+<div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+
+  <figure id="windows_clone_repo" style="width: 300px; margin: 0;">
+    <img src="static/readme/windows_clone_repo.png" alt="Windows Clone Repo" style="max-width: 100%;" />
+    <figcaption>Windows Clone Repo</figcaption>
+  </figure>
+
+  <figure id="windows_venv_activation" style="width: 300px; margin: 0;">
+    <img src="static/readme/windows_venv_activation.png" alt="Windows venv activation" style="max-width: 100%;" />
+    <figcaption>Windows venv activation</figcaption>
+  </figure>
+
+  <figure id="windows_env_file_creation_1" style="width: 300px; margin: 0;">
+    <img src="static/readme/windows_env_file_creation_1.png" alt="Windows Env File Creation 1" style="max-width: 100%;" />
+    <figcaption>Windows Env File Creation #1</figcaption>
+  </figure>
+
+  <figure id="windows_env_file_creation_2" style="width: 300px; margin: 0;">
+    <img src="static/readme/windows_env_file_creation_2.png" alt="Windows Env File Creation 2" style="max-width: 100%;" />
+    <figcaption>Windows Env File Creation #2</figcaption>
+  </figure>
+
+  <figure id="windows_install_dependencies" style="width: 300px; margin: 0;">
+    <img src="static/readme/windows_install_dependencies.png" alt="Windows Install Dependencies" style="max-width: 100%;" />
+    <figcaption>Windows Install Dependencies</figcaption>
+  </figure>
+
+  <figure id="windows_runserver" style="width: 300px; margin: 0;">
+    <img src="static/readme/windows_runserver.png" alt="Windows runserver" style="max-width: 100%;" />
+    <figcaption>Windows runserver</figcaption>
+  </figure>
+
+  <figure id="windows_server_online" style="width: 300px; margin: 0;">
+    <img src="static/readme/windows_server_online.png" alt="Windows server online" style="max-width: 100%;" />
+    <figcaption>Windows server online</figcaption>
+  </figure>
+
+</div>
