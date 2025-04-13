@@ -17,7 +17,7 @@ The project is structured as a Django web application with multiple apps, each h
 
 1. Check if config exists using ``` git config user.name``` and ```git config user.email```.
     * If suits your preferred user info, check for the public key using ```cat ~/.ssh/id_rsa.pub```.
-        * If exists,  in github Settings &rarr; SSH and GPG key (under Access) &rarr; New SSH key&rarr; Copy the key from id_rsa.pub above and paste it to the key section.
+        * If exists,  in GitHub Settings &rarr; SSH and GPG key (under Access) &rarr; New SSH key&rarr; Copy the key from id_rsa.pub above and paste it to the key section.
         * If not exists, generate it using ```ssh-keygen -t rsa -b 4096```.
 
 2. Clone repository
@@ -64,7 +64,7 @@ python manage.py runserver
 
 1. Check if config exists using ``` git config user.name``` and ```git config user.email```.
     * If suits your preferred user info, check for the public key using ```cat ~/.ssh/id_rsa.pub```.
-        * If exists,  in github Settings &rarr; SSH and GPG key (under Access) &rarr; New SSH key&rarr; Copy the key from id_rsa.pub above and paste it to the key section.
+        * If exists,  in GitHub Settings &rarr; SSH and GPG key (under Access) &rarr; New SSH key&rarr; Copy the key from id_rsa.pub above and paste it to the key section.
         * If not exists, generate it using ```ssh-keygen -t rsa -b 4096```.
 
 
@@ -75,7 +75,7 @@ git clone git@github.com:Friedjof/Uniconn.git
 cd Uniconn
 ```
 
-3. Create and activate a virtual environment [Jump to venv creation](#windows_clone_repo)
+3. Create and activate a virtual environment [Jump to venv creation](#windows_venv_activation)
 
 Important thing to notice: use local Python interpreter's path on your Windows machine (in my case it is "py").
 In the ".venv" folder there are several folders, the one we need is Scripts, which has the "activate" script in order to activate our environment.
@@ -86,17 +86,17 @@ python3 -m venv .venv
 .venv/bin/activate
 ```
 
-4. Install dependencies [[3](#windows_install_dependencies)]
+4. Install dependencies [[Jump to dependency installation](#windows_install_dependencies)]
 
 ```bash
 pip install -r requirements.txt
 ```
 
-5. Apply database migrations [[4](#windows_env_file_creation_1)]
+5. Apply database migrations [[Jump to .env file creation 1](#windows_env_file_creation_1)]
 
 In order to be able to migrate and also start the server, an .env file is needed, which has the needed configurations for the django server.
 
-These are the contents of the .env file [[5](#windows_env_file_creation_2)]:
+These are the contents of the .env file [[Jump to .env file creation 2](#windows_env_file_creation_2)]:
 
 ```
 SECRET_KEY="django-insecure-uv4+tp#wrhny7$3d+e^aqj3gxkz-1d3vb14@+e)p2$797@57%o"
@@ -116,7 +116,7 @@ EMAIL_HOST_USER='some_email'
 EMAIL_HOST_PASSWORD='some_password'
 ```
 
-6. Start the development server [[6](#windows_runserver)]
+6. Start the development server [[Jump to starting the server](#windows_runserver)]
 
 ```bash
 python manage.py runserver
@@ -128,7 +128,7 @@ In order to check the server's status, we enter the listed address and port:
 http://127.0.0.1:8000/
 ```
 
-We are then redirected to the current main page, which features a login form. [[7](#windows_server_online)]
+We are then redirected to the current main page, which features a login form. [[Jump to checking the server's webpage](#windows_server_online)]
 
 
 ## Windows Gallery
