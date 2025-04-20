@@ -1,0 +1,16 @@
+services:
+  app:
+    image: app:uniconn
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    container_name: uniconn_container
+    command: python manage.py runserver 0.0.0.0:8000
+
+volumes:
+  db-data:
+    driver: local
