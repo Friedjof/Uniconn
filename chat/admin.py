@@ -22,7 +22,7 @@ class MessageAdmin(ImportExportModelAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        return qs.select_related('chat', 'sender')
+        return qs.select_related('chat', 'sender').prefetch_related('sender')
 
 
 
@@ -41,6 +41,9 @@ class ChatAdmin(ImportExportModelAdmin):
     list_display = ('chat_id', 'status', 'get_users')
     list_filter = ('status',)
     search_fields = ('chat_id',)
+    
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('users')
     
     def get_users(self, obj):
         return ", ".join([user.username for user in obj.users.all()])
