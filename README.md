@@ -3,10 +3,30 @@
 This project is to develop a smart communication platform that verifies residents and connects apartments within your dormitory. Simplifies messaging, interactions, and neighbour-to-neighbour networking.
 
 ## Setup Uniconn as Docker Container
-1. Build the Docker image
 
+Docker Compose is used to deploy the application with all required services (web app, PostgreSQL database, and NGINX for static files).
+
+1. Make sure Docker and Docker Compose are installed on your system
+
+2. Build and start the Docker containers:
 ```bash
-docker compose build
+docker-compose up -d
+```
+   - `up` - Creates and starts the containers
+   - `-d` - Runs in detached mode (background)
+
+3. The application will be available at:
+   - Web interface: http://localhost:80
+   - Admin interface: http://localhost:80/admin
+
+4. To view container logs:
+```bash
+docker-compose logs -f
+```
+
+5. To stop the containers:
+```bash
+docker-compose down
 ```
 
 ## Setup Environment
