@@ -29,6 +29,19 @@ docker-compose logs -f
 docker-compose down
 ```
 
+## To connect PostgresDB via pgAdmin
+Firstly, we need to run the docker container.
+1. Right-click on "Servers" in the left panel
+2. Select "Register > Server..."
+3. Name it anyway you want, and enter connection info
+  - Host: localhost
+  - Port: 5432
+  - Maintenance database: postgres
+  - Username: postgres
+  - Password: postgres
+  - Save password: Check this box (optional)
+4. Click **Save** to have connection
+
 ## Setup Environment
 
 1. Check if config exist using ``` git config user.name``` and ```git config user.email```.
