@@ -143,7 +143,7 @@ def is_running_in_docker():
     try:
         with open('/proc/1/cgroup', 'rt') as f:
             return 'docker' in f.read() or 'kubepods' in f.read()
-    except:
+    except (FileNotFoundError, PermissionError):
         return False
 
 # Database configuration
