@@ -2,6 +2,46 @@
 
 This project is to develop a smart communication platform that verifies residents and connects apartments within your dormitory. Simplifies messaging, interactions, and neighbour-to-neighbour networking.
 
+## Setup Uniconn as Docker Container
+
+Docker Compose is used to deploy the application with all required services (web app, PostgreSQL database, and NGINX for static files).
+
+1. Make sure Docker and Docker Compose are installed on your system
+
+2. Build and start the Docker containers:
+```bash
+docker-compose up -d
+```
+   - `up` - Creates and starts the containers
+   - `-d` - Runs in detached mode (background)
+
+3. The application will be available at:
+   - Web interface: http://localhost:80
+   - Admin interface: http://localhost:80/admin
+
+4. To view container logs:
+```bash
+docker-compose logs -f
+```
+
+5. To stop the containers:
+```bash
+docker-compose down
+```
+
+## To connect PostgresDB via pgAdmin
+Firstly, we need to run the docker container.
+1. Right-click on "Servers" in the left panel
+2. Select "Register > Server..."
+3. Name it anyway you want, and enter connection info
+  - Host: localhost
+  - Port: 5432
+  - Maintenance database: postgres
+  - Username: postgres
+  - Password: postgres
+  - Save password: Check this box (optional)
+4. Click **Save** to have connection
+
 ## Setup Environment
 
 1. Check if config exist using ``` git config user.name``` and ```git config user.email```.

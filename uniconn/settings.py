@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 from decouple import config, Csv
 from pathlib import Path
+import os
+import dj_database_url
+import socket
 
 from django.utils.translation import gettext_lazy as _
 
@@ -133,14 +136,43 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 
 # Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# Check if we're running in Docker
+def is_running_in_docker():
+    try:
+        with open('/proc/1/cgroup', 'rt') as f:
+            return 'docker' in f.read() or 'kubepods' in f.read()
+    except (FileNotFoundError, PermissionError):
+        return False
+
+# Database configuration
+if os.environ.get('DATABASE_URL'):
+    # Use DATABASE_URL if provided (highest priority)
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600)
     }
-}
+elif is_running_in_docker():
+    # Docker environment configuration
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('POSTGRES_DB', 'postgres'),
+            'USER': os.environ.get('POSTGRES_USER', 'postgres'),
+            'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'postgres'),
+            'HOST': 'db',
+            'PORT': os.environ.get('DB_PORT', '5432'),
+        }
+    }
+else:
+    # Local development - use SQLite by default
+    print("Using SQLite for local development. Docker environment will use PostgreSQL.")
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -182,6 +214,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+
+STATIC_ROOT = os.environ.get('STATIC_ROOT', BASE_DIR / 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
