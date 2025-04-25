@@ -1,0 +1,253 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-18 21:59+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+#: .\account\forms.py:14
+msgid "Username"
+msgstr "Пользователь"
+
+#: .\account\forms.py:17
+msgid "E-Mail"
+msgstr "Эл. почта"
+
+#: .\account\forms.py:21 .\account\forms.py:106
+msgid "Password"
+msgstr "Пароль"
+
+#: .\account\forms.py:25
+msgid "Confirm Password"
+msgstr "Подтвердить пароль"
+
+#: .\account\forms.py:29 .\account\forms.py:35
+msgid "I agree to the"
+msgstr "Я соглашаюсь с"
+
+#: .\account\forms.py:43
+msgid "Password must contain at least one special character."
+msgstr "Пароль должен содержать минимум один специальный символ."
+
+#: .\account\forms.py:45
+msgid "Password must contain at least one uppercase letter."
+msgstr "Пароль должен содержать минимум одну заглавную букву."
+
+#: .\account\forms.py:47
+msgid "Password must contain at least one digit."
+msgstr "Пароль должен содержать минимум одну цифру."
+
+#: .\account\forms.py:49
+msgid "Password must be at least 16 characters long."
+msgstr "Пароль должен быть длиной минимум в 16 символов."
+
+#: .\account\forms.py:55
+msgid "Username can only contain letters, numbers, underscores, and hyphens."
+msgstr "Пользовательское имя может содержать только буквы, цифры, подчёркивания и дефисы."
+
+#: .\account\forms.py:57
+msgid "Username already exists."
+msgstr "Пользователь уже существует."
+
+#: .\account\forms.py:63
+msgid "Invalid email address."
+msgstr "Неправильный адрес эл. почты."
+
+#: .\account\forms.py:65
+msgid "This email address is already registered."
+msgstr "Данная эл. почта уже зарегистрирована."
+
+#: .\account\forms.py:71
+msgid "You must agree to the terms of service."
+msgstr "Вы должны согласиться с условиями сервиса."
+
+#: .\account\forms.py:77
+msgid "You must agree to the privacy policy."
+msgstr "Вы должны согласиться с политикой конфиденциальности."
+
+#: .\account\forms.py:85
+msgid "Passwords do not match."
+msgstr "Пароли не совпадают."
+
+#: .\account\forms.py:102
+msgid "E-Mail or Username"
+msgstr "Эл. почта или пользователь."
+
+#: .\account\forms.py:112
+msgid "Username or email address does not exist."
+msgstr "Пользователь или эл. почта не существуют."
+
+#: .\account\forms.py:123
+msgid "Incorrect password."
+msgstr "Неправильный пароль."
+
+#: .\account\forms.py:125
+msgid "This account is inactive."
+msgstr "Данный пользователь неактивен."
+
+#: .\account\forms.py:137 .\account\forms.py:141
+msgid "Verification Code"
+msgstr "Код подтверждения."
+
+#: .\account\forms.py:153
+msgid "Invalid theme selected."
+msgstr "Выбрана неправильная тема."
+
+#: .\account\templates\login.html:11 .\account\templates\login.html:15
+#: .\account\templates\login.html:24 .\account\templates\register.html:68
+#: .\templates\components\navbar.html:22
+msgid "Login"
+msgstr "Логин"
+
+#: .\account\templates\login.html:26
+msgid "No account yet?"
+msgstr "Нет ещё аккаунта?"
+
+#: .\account\templates\login.html:26
+msgid "Register here"
+msgstr "Зарегистрироваться здесь"
+
+#: .\account\templates\register.html:11 .\account\templates\register.html:15
+#: .\templates\components\navbar.html:20
+msgid "Register"
+msgstr "Зарегистрироваться"
+
+#: .\account\templates\register.html:33
+#, python-format
+msgid ""
+"\n"
+"                Make sure your %(bold_start)spassword%(bold_end)s is at "
+"least %(bold_start)s%(min_len)s characters%(bold_end)s long and includes:\n"
+"            "
+msgstr ""
+"\n"
+"                Убедитесь, что Ваш %(bold_start)sпароль%(bold_end)s "
+"хотя бы %(bold_start)s%(min_len)s символов %(bold_end)s в длину и содержит:\n"
+"            "
+
+#: .\account\templates\register.html:40
+#, python-format
+msgid ""
+"\n"
+"                        Uppercase & lowercase letters %(bold_start)s(A-Z, a-"
+"z)%(bold_end)s\n"
+"                    "
+msgstr ""
+"\n"
+"                        Заглавные и маленькие буквы %(bold_start)s(A-Z, a-"
+"z)%(bold_end)s\n"
+"                    "
+
+#: .\account\templates\register.html:45
+#, python-format
+msgid ""
+"\n"
+"                        Numbers %(bold_start)s(0-9)%(bold_end)s\n"
+"                    "
+msgstr ""
+"\n"
+"                        Цифры %(bold_start)s(0-9)%(bold_end)s\n"
+"                    "
+
+#: .\account\templates\register.html:50
+#, python-format
+msgid ""
+"\n"
+"                        Special characters %(bold_start)s(!@#$%%^&*)"
+"%(bold_end)s\n"
+"                    "
+msgstr ""
+"\n"
+"                        Специальные символы %(bold_start)s(!@#$%%^&*)"
+"%(bold_end)s\n"
+"                    "
+
+#: .\account\templates\register.html:58
+msgid "Terms of Service"
+msgstr "Политикой сервиса"
+
+#: .\account\templates\register.html:62 .\templates\components\footer.html:8
+msgid "Privacy Policy"
+msgstr "Политикой конфиденциальности"
+
+#: .\account\templates\register.html:68
+msgid "Do you already have an account?"
+msgstr "У Вас уже есть аккаунт?"
+
+#: .\homepage\templates\homepage.html:10
+msgid "Homepage"
+msgstr "Домашняя страница"
+
+#: .\homepage\templates\homepage.html:14
+msgid "Welcome to the Homepage"
+msgstr "Добро пожаловать на домашнюю страницу"
+
+#: .\homepage\templates\homepage.html:15
+msgid "This is the main content area of the homepage."
+msgstr "Это основное содержание домашней страницы."
+
+#: .\homepage\templates\homepage.html:16
+msgid "Here you can add more information about your website or application."
+msgstr "Здесь вы можете добавить больше информации о вашем сайте или приложении."
+
+#: .\homepage\templates\homepage.html:17
+msgid "Feel free to customize this template as per your requirements."
+msgstr "Вы можете свободно настраивать этот шаблон в соотвествии с тревобаниями."
+
+#: .\templates\components\footer.html:5
+msgid "Because we’re better together."
+msgstr "Потому что вместе мы лучше."
+
+#: .\templates\components\footer.html:7
+msgid "Imprint"
+msgstr "Отпечаток"
+
+#: .\templates\components\footer.html:9
+msgid "Contact"
+msgstr "Контакт"
+
+#: .\templates\components\navbar.html:6
+msgid "Home"
+msgstr "Домашняя страница"
+
+#: .\templates\components\navbar.html:7
+msgid "Chat"
+msgstr "Беседа"
+
+#: .\templates\components\navbar.html:16
+msgid "Profil"
+msgstr "Профиль"
+
+#: .\templates\components\navbar.html:17
+msgid "Logout"
+msgstr "Выход"
+
+#: .\uniconn\settings.py:45
+msgid "English"
+msgstr "Английский"
+
+#: .\uniconn\settings.py:46
+msgid "German"
+msgstr "Немецкий"
+
+#: .\uniconn\settings.py:47
+msgid "Turkish"
+msgstr "Турецкий"
+
+#: .\uniconn\settings.py:48
+msgid "Russian"
+msgstr "Русский"
