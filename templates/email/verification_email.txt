@@ -1,0 +1,6 @@
+Hello {{ username }},
+
+Click this link to verify your email:
+{{ verification_link }}
+
+Or copy and paste this code: {{ verification_code}}

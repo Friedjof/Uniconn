@@ -3,9 +3,10 @@ import uuid
 import logging
 
 from django.contrib.auth.models import AbstractUser
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.db import models
 from django.conf import settings
+from django.template.loader import render_to_string
 
 from .utils import gen_verification_code
 
@@ -97,10 +98,23 @@ class EmailVerification(models.Model):
             logger.warning('Cannot send email, EMAIL_HOST is not set.')
             return None
         subject = "Verify your email address"
-        message = f"Click this link to verify your email:\n{'https' if settings.TLS_ACTIVE else 'http'}://{settings.ALLOWED_HOSTS[0]}{':8000' if settings.DEBUG else ''}/account/email-verification?code={self.verification_code}\nOr copy and paste this code: {self.verification_code}"
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [self.user.email]
-        send_mail(subject, message, from_email, recipient_list)
+
+        verification_link = (f"{'https' if settings.TLS_ACTIVE else 'http'}://{settings.ALLOWED_HOSTS[0]}{':8000' if settings.DEBUG else ''}"
+                             f"/account/email-verification?code={self.verification_code}")
+
+        context = {
+            'username': self.user.username,
+            'verification_link': verification_link
+        }
+
+        html_content = render_to_string('email/verification_email.html', context)
+        plain_text_content = render_to_string('email/verification_email.txt', context)
+
+        email = EmailMultiAlternatives(subject, plain_text_content, from_email, recipient_list)
+        email.attach_alternative(html_content, "text/html")
+        email.send()
 
     def __str__(self):
         return f"<EmailVerification: {self.user.username} - {self.verification_code} - {'Verified' if self.verified else 'Not Verified'}>"

@@ -1,0 +1,72 @@
+nav {
+    background-color: var(--secondary-background-color);
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(var(--primary-top-color), 0.6);
+    border: 4px solid var(--primary-color);
+    position: fixed;
+    top: 0;
+    width: calc(100% - 30px);
+    z-index: 1000;
+    margin: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav .left {
+    float: left;
+}
+
+nav .right {
+    float: right;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li a {
+    display: block;
+    color: var(--primary-text-color);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    background-color: var(--primary-background-color);
+    color: var(--secondary-text-color);
+}
+
+.fade-effect {
+    height: 100px;
+    background: linear-gradient(to bottom, rgba(var(--primary-top-color), .8), rgba(var(--primary-top-color), 0));
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+#theme-toggle {
+    background-color: var(--secondary-background-color);
+    color: var(--primary-text-color);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#theme-toggle:hover {
+    background-color: var(--primary-background-color);
+    color: var(--secondary-text-color);
+}
