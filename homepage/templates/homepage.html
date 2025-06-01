@@ -12,6 +12,36 @@
 {% block content %}
     <div class="homepage">
         <h1>{% trans "Welcome to the Homepage" %}</h1>
+        
+        
+        {% if user.is_authenticated and user.email_is_verified and user.tenant_is_verified %}
+            <!-- Search Bar -->
+            <div class="search-container">
+                <form method="get" action="{% url 'homepage:search_results' %}" class="search-form">
+                    <input type="text" name="q" placeholder="{% trans 'Search chats, rooms, users...' %}" class="search-input">
+                    <button type="submit" class="search-button">
+                        <i class="fa fa-search"></i> {% trans "Search" %}
+                    </button>
+                    <div class="search-options">
+                        <label><input type="checkbox" name="search_chats" checked> {% trans "Chats" %}</label>
+                        <label><input type="checkbox" name="search_rooms" checked> {% trans "Rooms" %}</label>
+                        <label><input type="checkbox" name="search_users" checked> {% trans "Users" %}</label>
+                    </div>
+                </form>
+            </div>
+        {% else %}
+            <div class="verification-notice">
+                <p>{% trans "You need to be verified to use the search functionality." %}</p>
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'account:login' %}" class="btn btn-primary">{% trans "Login" %}</a>
+                {% elif not user.email_is_verified %}
+                    <a href="{% url 'account:email_verification' %}" class="btn btn-primary">{% trans "Verify Email" %}</a>
+                {% elif not user.tenant_is_verified %}
+                    <a href="{% url 'account:verify' %}" class="btn btn-primary">{% trans "Verify Account" %}</a>
+                {% endif %}
+            </div>
+        {% endif %}
+        
         <p>{% trans "This is the main content area of the homepage." %}</p>
         <p>{% trans "Here you can add more information about your website or application." %}</p>
         <p>{% trans "Feel free to customize this template as per your requirements." %}</p>
