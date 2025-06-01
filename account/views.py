@@ -10,6 +10,13 @@ from rest_framework import status
 
 from .forms import RegisterForm, LoginForm, VerifyForm, VerifyEmailForm, ThemeForm
 from .models import CustomUser, UserRole, EmailVerification, UserThemes
+from .mixins import (
+    GuestOrUnauthenticatedMixin, 
+    AuthenticationRequiredMixin, 
+    EmailVerificationRequiredMixin,
+    RoomRequiredMixin
+)
+from room.models import Room
 
 
 def index_view(request):
@@ -50,18 +57,8 @@ def get_theme(request):
     return Response({'theme': theme, 'isDark': UserThemes.is_dark(UserThemes.to_int(theme))}, status=status.HTTP_200_OK)
 
 
-class LoginView(TemplateView):
+class LoginView(GuestOrUnauthenticatedMixin, TemplateView):
     template_name = 'login.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            user: CustomUser = CustomUser.objects.get(id=request.user.id)
-            if not user.email_is_verified():
-                return redirect('account:email_verification')
-            if not user.tenant_is_verified():
-                return redirect('account:verify')
-            return redirect('homepage:index')
-        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -84,18 +81,8 @@ class LoginView(TemplateView):
         return render(request, self.template_name, {'form': form})
 
 
-class RegisterView(TemplateView):
+class RegisterView(GuestOrUnauthenticatedMixin, TemplateView):
     template_name = 'register.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            user: CustomUser = CustomUser.objects.get(id=request.user.id)
-            if not user.email_is_verified():
-                return redirect('account:email_verification')
-            if not user.tenant_is_verified():
-                return redirect('account:verify')
-            return redirect('homepage:index')
-        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -115,28 +102,36 @@ class RegisterView(TemplateView):
         return render(request, self.template_name, {'form': form})
 
 
-class VerifyEmailView(TemplateView):
+class VerifyEmailView(AuthenticationRequiredMixin, TemplateView):
     template_name = 'verify_email.html'
 
     def dispatch(self, request, *args, **kwargs):
+        # Erst Authentifizierung prüfen (durch Mixin)
         if not request.user.is_authenticated:
             return redirect('account:login')
+        
         user: CustomUser = CustomUser.objects.get(id=request.user.id)
-        if user.email_is_verified() and user.tenant_is_verified():
-            return redirect('homepage:index')
-        if not user.tenant_is_verified() and user.email_is_verified():
-            return redirect('account:verify')
-
+        
+        # Check for verification code in URL first (before checking if already verified)
         verification_code = request.GET.get('code')
         if verification_code and re.match(r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', verification_code):
             try:
                 email_verification = EmailVerification.objects.get(verification_code=verification_code)
                 if email_verification.verify_user(user, verification_code):
-                    return redirect('homepage:index')
+                    return redirect('room:select_room')
                 else:
                     return redirect('account:email_verification')
             except EmailVerification.DoesNotExist:
                 return redirect('account:email_verification')
+        
+        # If email is already verified, redirect based on current status
+        if user.email_is_verified():
+            if not Room.objects.filter(tenants=request.user).exists():
+                return redirect('room:select_room')
+            elif user.tenant_is_verified():
+                return redirect('homepage:index')
+            else:
+                return redirect('account:verify')
 
         return super().dispatch(request, *args, **kwargs)
 
@@ -153,7 +148,7 @@ class VerifyEmailView(TemplateView):
             try:
                 email_verification = EmailVerification.objects.get(verification_code=email_code)
                 if email_verification.verify_user(user, email_code):
-                    return redirect('homepage:index')
+                    return redirect('room:select_room')
                 else:
                     form.add_error('code', 'Invalid verification code')
             except EmailVerification.DoesNotExist:
@@ -162,18 +157,20 @@ class VerifyEmailView(TemplateView):
         return render(self.request, self.template_name, {'form': form})
 
 
-class VerifyView(TemplateView):
+class VerifyView(RoomRequiredMixin, TemplateView):
     template_name = 'verify.html'
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('account:login')
+        # Erst die Basis-Validierungen (Auth, Email, Room) durch Mixin
+        response = super().dispatch(request, *args, **kwargs)
+        if response:
+            return response
+        
         user: CustomUser = CustomUser.objects.get(id=request.user.id)
-        if not user.email_is_verified():
-            return redirect('account:email_verification')
         if user.tenant_is_verified():
             return redirect('homepage:index')
-        return super().dispatch(request, *args, **kwargs)
+        
+        return super(RoomRequiredMixin, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

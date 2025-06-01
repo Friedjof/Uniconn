@@ -6,17 +6,17 @@ from .models import Room
 
 
 class RoomForm(forms.Form):
-    room_name = forms.ModelMultipleChoiceField(
+    room_name = forms.ModelChoiceField(
         queryset=Room.objects.all(),
-        required=False,  # Optional: falls nicht erforderlich
-        label=_("Räume"),
+        required=True,  # Made required since we need a room selection
+        label=_("Raum"),
         widget=ModelSelect2Widget(
             model=Room,
             search_fields=['room_name__icontains'],
             attrs={
                 "data-minimum-input-length": 0,
                 "data-placeholder": _("Raum auswählen"),
-                "data-close-on-select": "false",
+                "data-close-on-select": "true",  # Close on select since it's single choice
                 "class": "form-control",
             }
         )
@@ -26,5 +26,3 @@ class RoomForm(forms.Form):
         super().__init__(*args, **kwargs)
         # Queryset erneut abrufen, um sicherzustellen, dass es aktuell ist
         self.fields['room_name'].queryset = Room.objects.all()
-        # Debug-Ausgabe
-        print(f"Anzahl der Räume: {Room.objects.count()}")

@@ -14,6 +14,11 @@ class Room(models.Model):
 
     def get_tenants(self):
         return self.tenants.all()
+    
+    def add_tenant(self, tenant: CustomUser):
+        if not isinstance(tenant, CustomUser):
+            raise ValueError("tenant must be an instance of CustomUser")
+        self.tenants.add(tenant)
 
     def __str__(self) -> str:
         return self.room_name
