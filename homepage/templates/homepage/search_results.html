@@ -3,43 +3,25 @@
 {% load i18n %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'homepage/search.css' %}">
-    <style>
-        /* Inline style to ensure background color works */
-        .search-results-container {
-            background-color: red !important;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/homepage/search.css' %}">
 {% endblock %}
 
 {% block title %}{% trans "Search Results" %}{% endblock %}
 
 {% block content %}
-<!-- Check user permissions -->
-{% if not user.is_authenticated %}
-    <script>
-        window.location.href = "{% url 'account:login' %}";
-    </script>
-{% elif not user.email_is_verified %}
-    <script>
-        window.location.href = "{% url 'account:email_verification' %}";
-    </script>
-{% elif not user.tenant_is_verified %}
-    <script>
-        window.location.href = "{% url 'account:verify' %}";
-    </script>
-{% else %}
-    <!-- User has permission, show search results -->
     <div class="search-results-container">
-        <h1>{% trans "Search Results" %} for "{{ results.query }}"</h1>
+        <h1>{% trans "Search Results" %} {% if results.query %}for "{{ results.query }}"{% endif %}</h1>
         
         <!-- Search form to allow refining the search -->
         <div class="search-container">
             <form method="get" action="{% url 'homepage:search_results' %}" class="search-form">
-                <input type="text" name="q" value="{{ results.query }}" class="search-input">
-                <button type="submit" class="search-button">
-                    <i class="fa fa-search"></i> {% trans "Search" %}
-                </button>
+                <div class="search-input-container">
+                    <input type="text" name="q" value="{{ results.query }}" placeholder="{% trans 'Search chats, rooms, users...' %}" class="search-input">
+                    <button type="submit" class="search-button">
+                        <i class="fa fa-search"></i>
+                        <span>{% trans "Search" %}</span>
+                    </button>
+                </div>
                 <div class="search-options">
                     <label><input type="checkbox" name="search_chats" {% if request.GET.search_chats %}checked{% endif %}> {% trans "Chats" %}</label>
                     <label><input type="checkbox" name="search_rooms" {% if request.GET.search_rooms %}checked{% endif %}> {% trans "Rooms" %}</label>
@@ -49,18 +31,25 @@
         </div>
 
         {% if not results.query %}
-            <div class="no-results">{% trans "Please enter a search term" %}</div>
+            <div class="no-results">
+                <i class="fa fa-search" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                <div>{% trans "Please enter a search term" %}</div>
+            </div>
         {% else %}
             <!-- Users section -->
             {% if results.users %}
                 <section class="result-section">
-                    <h2>{% trans "Users" %}</h2>
+                    <h2><i class="fa fa-users"></i> {% trans "Users" %} ({{ results.users|length }})</h2>
                     <ul class="results-list users-list">
                         {% for user in results.users %}
                             <li class="result-item user-item">
                                 <div class="user-info">
-                                    <h3>{{ user.username }}</h3>
-                                    <p>{% trans "Last login" %}: {{ user.last_login|date:"M d, Y H:i" }}</p>
+                                    <h3><i class="fa fa-user"></i> {{ user.username }}</h3>
+                                    {% if user.last_login %}
+                                        <p><i class="fa fa-clock-o"></i> {% trans "Last login" %}: {{ user.last_login|date:"M d, Y H:i" }}</p>
+                                    {% else %}
+                                        <p><i class="fa fa-clock-o"></i> {% trans "Never logged in" %}</p>
+                                    {% endif %}
                                 </div>
                             </li>
                         {% endfor %}
@@ -71,14 +60,20 @@
             <!-- Rooms section -->
             {% if results.rooms %}
                 <section class="result-section">
-                    <h2>{% trans "Rooms" %}</h2>
+                    <h2><i class="fa fa-home"></i> {% trans "Rooms" %} ({{ results.rooms|length }})</h2>
                     <ul class="results-list rooms-list">
                         {% for room in results.rooms %}
                             <li class="result-item room-item">
-                                <!-- Room display logic -->
-                                <h3>{{ room.name }}</h3>
-                                <p>{{ room.description|truncatechars:100 }}</p>
-                                <a href="#" class="view-room-btn">{% trans "Enter Room" %}</a>
+                                <h3><i class="fa fa-door-open"></i> {{ room.name }}</h3>
+                                {% if room.description %}
+                                    <p>{{ room.description|truncatechars:150 }}</p>
+                                {% else %}
+                                    <p><em>{% trans "No description available" %}</em></p>
+                                {% endif %}
+                                <a href="#" class="view-room-btn">
+                                    <i class="fa fa-arrow-right"></i>
+                                    {% trans "Enter Room" %}
+                                </a>
                             </li>
                         {% endfor %}
                     </ul>
@@ -88,14 +83,20 @@
             <!-- Chats section -->
             {% if results.chats %}
                 <section class="result-section">
-                    <h2>{% trans "Chats" %}</h2>
+                    <h2><i class="fa fa-comments"></i> {% trans "Chats" %} ({{ results.chats|length }})</h2>
                     <ul class="results-list chats-list">
                         {% for chat in results.chats %}
                             <li class="result-item chat-item">
-                                <!-- Chat display logic -->
-                                <h3>{{ chat.title }}</h3>
-                                <p>{{ chat.last_message|truncatechars:100 }}</p>
-                                <a href="#" class="view-chat-btn">{% trans "Open Chat" %}</a>
+                                <h3><i class="fa fa-comment"></i> {{ chat.title }}</h3>
+                                {% if chat.last_message %}
+                                    <p>"{{ chat.last_message|truncatechars:120 }}"</p>
+                                {% else %}
+                                    <p><em>{% trans "No messages yet" %}</em></p>
+                                {% endif %}
+                                <a href="#" class="view-chat-btn">
+                                    <i class="fa fa-arrow-right"></i>
+                                    {% trans "Open Chat" %}
+                                </a>
                             </li>
                         {% endfor %}
                     </ul>
@@ -103,9 +104,14 @@
             {% endif %}
 
             {% if not results.users and not results.rooms and not results.chats %}
-                <div class="no-results">{% trans "No results found" %}</div>
+                <div class="no-results">
+                    <i class="fa fa-search" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                    <div>{% trans "No results found for" %} "{{ results.query }}"</div>
+                    <div style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">
+                        {% trans "Try adjusting your search terms or search options" %}
+                    </div>
+                </div>
             {% endif %}
         {% endif %}
     </div>
-{% endif %}
 {% endblock %}

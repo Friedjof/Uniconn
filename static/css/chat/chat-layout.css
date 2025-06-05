@@ -1,0 +1,71 @@
+/* Basic Layout and Structure */
+body.chat-active {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.chat-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    max-width: none;
+    margin: 0;
+    background: var(--secondary-background-color);
+    box-shadow: none;
+    border: none;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.chat-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--primary-background-color);
+}
+
+/* Chat Header */
+.chat-header {
+    background: var(--secondary-background-color);
+    border-bottom: 2px solid var(--secondary-border-color);
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header-info {
+    display: flex;
+    align-items: center;
+}
+
+.chat-details h3 {
+    font-size: 1.1rem;
+    color: var(--primary-text-color);
+    margin: 0 0 5px 0;
+    font-weight: 600;
+}
+
+.chat-status {
+    font-size: 0.85rem;
+    color: var(--secondary-text-color);
+}
+
+/* Empty State Navigation */
+.empty-state-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--secondary-background-color);
+    border-bottom: 2px solid var(--secondary-border-color);
+    z-index: 10;
+}

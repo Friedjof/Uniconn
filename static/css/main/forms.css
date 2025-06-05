@@ -31,7 +31,7 @@
     border: 1px solid var(--secondary-color);
     border-radius: 4px;
     background-color: var(--primary-background-color);
-    color: var(--secondary-text-color);
+    color: var(--primary-text-color);
 }
 
 .form-container .btn-primary {
@@ -47,11 +47,12 @@
 
 .form-container .btn-primary:hover {
     background-color: var(--primary-background-color);
-    color: var(--secondary-text-color);
+    color: var(--primary-text-color);
 }
 
 .form-control::placeholder {
-    color: var(--secondary-text-color);;
+    color: var(--primary-text-color);
+    opacity: 0.6;
 }
 
 .center-text {
@@ -60,7 +61,7 @@
 
 .error {
     background-color: var(--primary-background-color);
-    color: var(--secondary-text-color);
+    color: var(--primary-text-color);
     padding: 10px;
     border-radius: 4px;
     margin-bottom: 10px;

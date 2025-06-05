@@ -7,11 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const get_theme_url = document.getElementById('get_theme_url').textContent;
     const set_theme_url = document.getElementById('set_theme_url').textContent;
 
-    // Funktion zum Abrufen des CSRF-Tokens
-    function getCsrfToken() {
-        return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    }
-
     function fetchTheme() {
         fetch(get_theme_url)
             .then(response => response.json())
@@ -60,3 +55,20 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Element with ID "theme-toggle" not found.');
     }
 });
+
+// Global function for changing language
+function changeLanguage(languageCode) {
+    // Simple redirect to the language-specific URL
+    const currentPath = window.location.pathname;
+    
+    // Remove any existing language prefix
+    const cleanPath = currentPath.replace(/^\/(de|en|ru|tr)\//, '/');
+    
+    // Redirect to the new language URL
+    window.location.href = `/${languageCode}${cleanPath}`;
+}
+
+// Helper function to get CSRF token (moved outside DOMContentLoaded for global access)
+function getCsrfToken() {
+    return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+}

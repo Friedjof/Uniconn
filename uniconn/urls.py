@@ -18,11 +18,17 @@ from django.urls import path
 from django.contrib import admin
 from django.urls.conf import include
 from django.conf.urls.i18n import i18n_patterns
+from django.conf.urls.i18n import set_language
 
-urlpatterns = i18n_patterns(
+urlpatterns = [
+    path('i18n/', include('django.conf.urls.i18n')),
+]
+
+urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
     path('account/', include(('account.urls', 'account'), namespace='account')),
     path('select2/', include("django_select2.urls")),
     path('room/', include(('room.urls', 'room'), namespace='room')),
+    path('chat/', include(('chat.urls', 'chat'), namespace='chat')),
     path('', include(('homepage.urls', 'templates'), namespace='templates')),
 )

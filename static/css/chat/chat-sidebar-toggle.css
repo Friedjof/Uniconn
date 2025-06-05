@@ -1,0 +1,43 @@
+/* Styling für Chat-Sidebar-Toggle */
+
+/* Überlagerung beim Öffnen der Sidebar auf Mobilgeräten */
+body.sidebar-open::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    display: none;
+}
+
+/* Stile für den leeren Zustand */
+.chat-empty {
+    transition: transform 0.3s ease;
+}
+
+.chat-empty.sidebar-visible {
+    transform: translateX(10px);
+}
+
+/* Mobile-Anpassungen */
+@media screen and (max-width: 768px) {
+    /* Überlagerung anzeigen */
+    body.sidebar-open::before {
+        display: block;
+    }
+    
+    /* Sidebar über der Überlagerung */
+    .chat-sidebar.show {
+        z-index: 999;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Toggle-Buttons hervorheben */
+    #sidebarToggle, #sidebarToggleEmpty {
+        z-index: 101;
+        position: relative;
+    }
+}

@@ -1,0 +1,645 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
+    const newChatBtn = document.getElementById('newChatBtn');
+    const newChatModal = document.getElementById('newChatModal');
+    const modalClose = document.getElementById('modalClose');
+    const messageForm = document.getElementById('messageForm');
+    const messageInput = document.getElementById('messageInput');
+    const messagesContainer = document.getElementById('messagesContainer');
+    const messagesWrapper = document.getElementById('messagesWrapper');
+    const chatSearch = document.getElementById('chatSearch');
+    const userSearch = document.getElementById('userSearch');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const chatSidebar = document.getElementById('chatSidebar');
+
+    // Chat state
+    let currentChatId = null;
+    let chatSocket = null;
+    let isTyping = false;
+    let typingTimeout = null;
+    let typingIndicatorElement = null;
+
+    // Initialize
+    init();
+
+    // Initialize chat app
+    function init() {
+        // Add chat-active class to body
+        document.body.classList.add('chat-active');
+        
+        setupEventListeners();
+        setupAutoResize();
+        handleViewportChange(); // Initial viewport setup
+        
+        if (document.getElementById('chatId')) {
+            currentChatId = document.getElementById('chatId').value;
+            scrollToBottom();
+            connectWebSocket();
+        }
+    }
+
+    function connectWebSocket() {
+        if (!currentChatId) return;
+
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const wsUrl = `${protocol}//${window.location.host}/ws/chat/${currentChatId}/`;
+        
+        chatSocket = new WebSocket(wsUrl);
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            handleWebSocketMessage(data);
+        };
+
+        chatSocket.onclose = function(e) {
+            console.log('WebSocket connection closed');
+            // Attempt to reconnect after 3 seconds
+            setTimeout(() => {
+                if (currentChatId) {
+                    connectWebSocket();
+                }
+            }, 3000);
+        };
+
+        chatSocket.onerror = function(e) {
+            console.error('WebSocket error:', e);
+        };
+    }
+
+    function handleWebSocketMessage(data) {
+        switch (data.type) {
+            case 'chat_message':
+                // Don't add message if it's from current user (already added optimistically)
+                if (data.user_id !== CURRENT_USER_ID) {
+                    addMessageToUI({
+                        id: data.message_id,
+                        content: data.message,
+                        sender_id: data.user_id,
+                        timestamp: data.timestamp,
+                        is_own: false
+                    });
+                    scrollToBottom();
+                    updateChatPreview(currentChatId, {
+                        content: data.message,
+                        sender_id: data.user_id,
+                        timestamp: data.timestamp
+                    });
+                }
+                break;
+
+            case 'typing_indicator':
+                handleTypingIndicator(data);
+                break;
+
+            case 'error':
+                showError(data.error);
+                break;
+        }
+    }
+
+    function handleTypingIndicator(data) {
+        const typingContainer = document.getElementById('typingIndicator');
+        
+        if (data.is_typing) {
+            if (!typingIndicatorElement) {
+                typingIndicatorElement = document.createElement('div');
+                typingIndicatorElement.className = 'typing-indicator';
+                typingIndicatorElement.innerHTML = `
+                    <div class="typing-text">
+                        ${data.username} tippt...
+                        <div class="typing-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                `;
+                
+                if (typingContainer) {
+                    typingContainer.appendChild(typingIndicatorElement);
+                } else {
+                    messagesWrapper.appendChild(typingIndicatorElement);
+                }
+                scrollToBottom();
+            }
+        } else {
+            if (typingIndicatorElement) {
+                typingIndicatorElement.remove();
+                typingIndicatorElement = null;
+            }
+        }
+    }
+
+    function setupEventListeners() {
+        // New chat modal
+        if (newChatBtn) {
+            newChatBtn.addEventListener('click', openNewChatModal);
+        }
+        
+        if (modalClose) {
+            modalClose.addEventListener('click', closeNewChatModal);
+        }
+
+        // Modal backdrop click
+        if (newChatModal) {
+            newChatModal.addEventListener('click', function(e) {
+                if (e.target === newChatModal) {
+                    closeNewChatModal();
+                }
+            });
+        }
+
+        // Message form
+        if (messageForm) {
+            messageForm.addEventListener('submit', sendMessage);
+        }
+
+        // Auto-resize textarea
+        if (messageInput) {
+            messageInput.addEventListener('input', function() {
+                autoResize(this);
+                handleTyping();
+            });
+        }
+
+        // Chat search
+        if (chatSearch) {
+            chatSearch.addEventListener('input', filterChats);
+        }
+
+        // User search in modal
+        if (userSearch) {
+            userSearch.addEventListener('input', filterUsers);
+        }
+
+        // Mobile sidebar toggle
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', toggleSidebar);
+        }
+
+        // Close chat button
+        const closeChatBtn = document.getElementById('closeChatBtn');
+        if (closeChatBtn) {
+            closeChatBtn.addEventListener('click', closeChat);
+        }
+        
+        // Theme toggle buttons
+        const chatThemeToggle = document.getElementById('chatThemeToggle');
+        const emptyThemeToggle = document.getElementById('emptyThemeToggle');
+        
+        if (chatThemeToggle) {
+            chatThemeToggle.addEventListener('click', toggleTheme);
+        }
+        
+        if (emptyThemeToggle) {
+            emptyThemeToggle.addEventListener('click', toggleTheme);
+        }
+        
+        // Additional mobile sidebar toggles for empty state
+        const sidebarToggleEmpty = document.getElementById('sidebarToggleEmpty');
+        if (sidebarToggleEmpty) {
+            sidebarToggleEmpty.addEventListener('click', toggleSidebar);
+        }
+
+        // ESC key to close modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && newChatModal && newChatModal.classList.contains('show')) {
+                closeNewChatModal();
+            }
+            // ESC key to close chat on mobile
+            if (e.key === 'Escape' && window.innerWidth <= 768) {
+                closeChat();
+            }
+        });
+    }
+
+    function setupAutoResize() {
+        if (messageInput) {
+            autoResize(messageInput);
+        }
+    }
+
+    function autoResize(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+    }
+
+    function openNewChatModal() {
+        if (newChatModal) {
+            newChatModal.classList.add('show');
+            newChatModal.style.display = 'flex';
+            if (userSearch) {
+                userSearch.focus();
+            }
+        }
+    }
+
+    function closeNewChatModal() {
+        if (newChatModal) {
+            newChatModal.classList.remove('show');
+            setTimeout(() => {
+                newChatModal.style.display = 'none';
+            }, 300);
+            if (userSearch) {
+                userSearch.value = '';
+                filterUsers();
+            }
+        }
+    }
+
+    function sendMessage(e) {
+        e.preventDefault();
+        
+        const content = messageInput.value.trim();
+        if (!content || !currentChatId || !chatSocket) return;
+
+        // Optimistic UI update
+        const tempMessageId = 'temp-' + Date.now();
+        addMessageToUI({
+            id: tempMessageId,
+            content: content,
+            sender_id: CURRENT_USER_ID,
+            timestamp: new Date().toISOString(),
+            status: 'sending',
+            is_own: true
+        });
+
+        // Send via WebSocket
+        chatSocket.send(JSON.stringify({
+            'type': 'chat_message',
+            'message': content
+        }));
+
+        // Clear input
+        messageInput.value = '';
+        autoResize(messageInput);
+        scrollToBottom();
+
+        // Also send typing stop signal
+        sendTypingSignal(false);
+    }
+
+    function addMessageToUI(messageData) {
+        if (!messagesWrapper) return;
+
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${messageData.is_own ? 'own' : 'other'}`;
+        messageDiv.setAttribute('data-message-id', messageData.id);
+
+        const timestamp = new Date(messageData.timestamp);
+        const timeString = timestamp.toLocaleTimeString('de-DE', { 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        });
+
+        let statusIcon = '';
+        if (messageData.is_own) {
+            switch (messageData.status) {
+                case 'sent':
+                case 'sending':
+                    statusIcon = '<i class="fa fa-check"></i>';
+                    break;
+                case 'delivered':
+                    statusIcon = '<i class="fa fa-check-double"></i>';
+                    break;
+                case 'read':
+                    statusIcon = '<i class="fa fa-check-double read"></i>';
+                    break;
+            }
+        }
+
+        messageDiv.innerHTML = `
+            <div class="message-content">
+                <div class="message-text">${escapeHtml(messageData.content)}</div>
+                <div class="message-meta">
+                    <span class="message-time">${timeString}</span>
+                    ${statusIcon ? `<span class="message-status">${statusIcon}</span>` : ''}
+                </div>
+            </div>
+        `;
+
+        messagesWrapper.appendChild(messageDiv);
+    }
+
+    function scrollToBottom() {
+        if (messagesContainer) {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+    }
+
+    function filterChats() {
+        const searchTerm = chatSearch.value.toLowerCase();
+        const chatItems = document.querySelectorAll('.chat-item');
+
+        chatItems.forEach(item => {
+            const chatName = item.querySelector('.chat-name').textContent.toLowerCase();
+            const lastMessage = item.querySelector('.last-message');
+            const lastMessageText = lastMessage ? lastMessage.textContent.toLowerCase() : '';
+
+            if (chatName.includes(searchTerm) || lastMessageText.includes(searchTerm)) {
+                item.style.display = 'flex';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    function filterUsers() {
+        const searchTerm = userSearch.value.toLowerCase();
+        const userItems = document.querySelectorAll('.user-item');
+
+        userItems.forEach(item => {
+            const username = item.querySelector('h4').textContent.toLowerCase();
+            const fullName = item.querySelector('.user-name');
+            const fullNameText = fullName ? fullName.textContent.toLowerCase() : '';
+
+            if (username.includes(searchTerm) || fullNameText.includes(searchTerm)) {
+                item.style.display = 'flex';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    function toggleSidebar() {
+        const sidebar = document.getElementById('chatSidebar');
+        if (sidebar) {
+            sidebar.classList.toggle('show');
+            
+            // Füge eine Klasse zum Body hinzu, um das Überlappungsverhalten zu steuern
+            document.body.classList.toggle('sidebar-open');
+            
+            // Zusätzliche Anpassung für den leeren Zustand
+            const chatEmpty = document.querySelector('.chat-empty');
+            if (chatEmpty) {
+                chatEmpty.classList.toggle('sidebar-visible');
+            }
+        }
+    }
+
+    function closeChat() {
+        // Remove chat-active class from body
+        document.body.classList.remove('chat-active');
+        
+        // Close WebSocket connection
+        if (chatSocket) {
+            chatSocket.close();
+        }
+        
+        // Navigate back to home or dashboard
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.location.href = '/';
+        }
+    }
+
+    // Handle viewport changes for better responsiveness
+    function handleViewportChange() {
+        const chatContainer = document.querySelector('.chat-container');
+        if (chatContainer && window.innerWidth <= 768) {
+            // Full viewport height since we integrated navigation
+            chatContainer.style.height = `${window.innerHeight}px`;
+        }
+    }
+
+    // Listen for viewport changes
+    window.addEventListener('resize', handleViewportChange);
+    window.addEventListener('orientationchange', function() {
+        setTimeout(handleViewportChange, 100);
+    });
+
+    function handleTyping() {
+        if (!isTyping) {
+            isTyping = true;
+            sendTypingSignal(true);
+        }
+
+        clearTimeout(typingTimeout);
+        typingTimeout = setTimeout(() => {
+            isTyping = false;
+            sendTypingSignal(false);
+        }, 1000);
+    }
+
+    function sendTypingSignal(typing) {
+        if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
+            chatSocket.send(JSON.stringify({
+                'type': 'typing',
+                'is_typing': typing
+            }));
+        }
+    }
+
+    function updateChatPreview(chatId, message) {
+        const chatItem = document.querySelector(`[data-chat-id="${chatId}"]`);
+        if (chatItem) {
+            const lastMessageElement = chatItem.querySelector('.last-message');
+            const timeElement = chatItem.querySelector('.chat-time');
+            
+            if (lastMessageElement) {
+                const preview = message.sender_id === CURRENT_USER_ID ? 
+                    `Du: ${message.content}` : message.content;
+                lastMessageElement.textContent = preview.length > 50 ? 
+                    preview.substring(0, 50) + '...' : preview;
+            }
+            
+            if (timeElement) {
+                const timestamp = new Date(message.timestamp);
+                timeElement.textContent = timestamp.toLocaleTimeString('de-DE', { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+            }
+
+            // Move chat to top
+            const chatList = document.getElementById('chatList');
+            if (chatList && chatItem.parentNode === chatList) {
+                chatList.insertBefore(chatItem, chatList.firstChild);
+            }
+        }
+    }
+
+    // Cleanup WebSocket connection when leaving page
+    window.addEventListener('beforeunload', function() {
+        if (chatSocket) {
+            chatSocket.close();
+        }
+    });
+
+    function showError(message) {
+        // Simple error notification
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-notification';
+        errorDiv.textContent = message;
+        errorDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #f44336;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            z-index: 1001;
+            animation: slideIn 0.3s ease;
+        `;
+
+        document.body.appendChild(errorDiv);
+
+        setTimeout(() => {
+            errorDiv.remove();
+        }, 3000);
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Global functions for HTML onclick events
+    window.openChat = function(chatId) {
+        window.location.href = CHAT_URLS.chatDetail + chatId + '/';
+    };
+
+    window.startChat = function(userId) {
+        const formData = new FormData();
+        formData.append('user_id', userId);
+        formData.append('csrfmiddlewaretoken', CSRF_TOKEN);
+
+        fetch(CHAT_URLS.startChat, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': CSRF_TOKEN
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = data.redirect_url;
+            } else {
+                showError(data.error || 'Fehler beim Starten des Chats');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showError('Fehler beim Starten des Chats');
+        });
+
+        closeNewChatModal();
+    };
+
+    // Add CSS for error notification animation and new features
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .error-notification {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-weight: 500;
+        }
+
+        .connection-status {
+            padding: 8px 12px;
+            background: var(--warning-color, #ff9800);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: auto;
+            animation: slideIn 0.3s ease;
+        }
+
+        .connection-status.error {
+            background: var(--danger-color, #f44336);
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            margin: 8px 0;
+            background: var(--card-background);
+            border-radius: 18px;
+            max-width: 200px;
+            opacity: 0.8;
+        }
+
+        .typing-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 2px;
+        }
+
+        .typing-dots span {
+            width: 4px;
+            height: 4px;
+            background: var(--text-muted);
+            border-radius: 50%;
+            animation: typingDots 1.4s infinite ease-in-out;
+        }
+
+        .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typingDots {
+            0%, 80%, 100% {
+                transform: scale(0);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Theme toggle functionality
+    function toggleTheme() {
+        // Get the theme URLs from the template
+        const setThemeUrl = '/account/set_theme/'; // Fallback URL
+        
+        // Make AJAX request to toggle theme
+        fetch(setThemeUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': CSRF_TOKEN
+            },
+            body: JSON.stringify({
+                'action': 'toggle'
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Reload the page to apply the new theme
+                window.location.reload();
+            } else {
+                console.error('Failed to toggle theme:', data.error);
+                showError('Failed to change theme');
+            }
+        })
+        .catch(error => {
+            console.error('Error toggling theme:', error);
+            showError('Failed to change theme');
+        });
+    }
+});

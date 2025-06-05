@@ -1,0 +1,145 @@
+/* Chat Sidebar Styles */
+.chat-sidebar {
+    width: 350px;
+    min-width: 300px;
+    background: var(--primary-background-color);
+    border-right: 2px solid var(--secondary-border-color);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.chat-sidebar-header {
+    padding: 10px 20px;
+    background: var(--secondary-background-color);
+    border-bottom: 2px solid var(--secondary-border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+/* Header layout sections */
+.header-left, .header-center, .header-right {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+}
+
+.header-left {
+    flex: 0 0 auto;
+}
+
+.header-center {
+    flex: 1;
+    justify-content: center;
+}
+
+.header-right {
+    flex: 0 0 auto;
+}
+
+.chat-sidebar-header h2 {
+    color: var(--primary-text-color);
+    font-size: 1.3rem;
+    margin: 0;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chat-sidebar-header h2 i {
+    color: var(--primary-color);
+}
+
+/* New Chat Button */
+.new-chat-btn {
+    background: var(--secondary-color);
+    color: var(--primary-background-color);
+    border: none;
+    border-radius: 25px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.new-chat-btn:hover {
+    background: var(--primary-color);
+    color: var(--primary-text-color);
+}
+
+.new-chat-btn i {
+    font-size: 0.8rem;
+}
+
+.new-chat-btn span {
+    font-size: 0.9rem;
+}
+
+/* Chat Search */
+.chat-search {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--secondary-border-color);
+}
+
+.search-input-container {
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    border: 2px solid var(--secondary-border-color);
+    border-radius: 25px;
+    background: var(--secondary-background-color);
+    color: var(--primary-text-color);
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.search-input:focus {
+    border-color: var(--primary-color);
+    background: var(--primary-background-color);
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary-text-color);
+    pointer-events: none;
+}
+
+/* Chat List */
+.chat-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.chat-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--secondary-border-color);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.chat-item:hover {
+    background: var(--secondary-background-color);
+}
+
+.chat-item.active {
+    background: var(--secondary-background-color);
+    border-right: 3px solid var(--primary-color);
+}

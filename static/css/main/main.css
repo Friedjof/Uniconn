@@ -3,7 +3,7 @@ html, body {
     margin: 0;
     padding: 0;
     background-color: var(--primary-background-color);
-    color: var(--secondary-text-color);
+    color: var(--primary-text-color);
 }
 
 body {

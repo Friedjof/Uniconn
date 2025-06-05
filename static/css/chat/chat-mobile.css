@@ -1,0 +1,139 @@
+/* Mobile Optimizations for Chat */
+
+/* Additional Mobile Optimizations */
+@media screen and (max-width: 768px) {
+    /* Ensure full viewport usage */
+    html, body {
+        overflow-x: hidden;
+    }
+    
+    body.chat-active {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .chat-container {
+        min-height: 100vh;
+        min-height: -webkit-fill-available; /* iOS Safari */
+    }
+    
+    /* Improve touch targets */
+    .chat-item {
+        min-height: 60px;
+        padding: 15px;
+    }
+    
+    .chat-action-btn,
+    .send-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    /* Better text readability */
+    .message-text {
+        font-size: 16px; /* Prevent zoom on iOS */
+        line-height: 1.5;
+    }
+    
+    .message-input {
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    /* Navigation adaptations for mobile */
+    .chat-header-nav {
+        gap: 8px;
+    }
+    
+    .nav-btn {
+        padding: 6px 8px;
+        font-size: 12px;
+        min-height: 32px;
+    }
+    
+    .nav-btn .username-text {
+        display: none; /* Hide username text on mobile */
+    }
+    
+    .empty-state-header {
+        top: 10px;
+        left: 15px;
+        right: 15px;
+        padding: 15px 20px;
+    }
+    
+    .chat-empty {
+        padding-top: 70px;
+    }
+    
+    .empty-nav-left,
+    .empty-nav-right {
+        gap: 6px;
+    }
+    
+    /* Stack navigation vertically on very small screens */
+    @media screen and (max-width: 480px) {
+        .chat-actions {
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .nav-btn {
+            padding: 5px 6px;
+            min-height: 28px;
+        }
+        
+        .nav-btn i {
+            font-size: 14px;
+        }
+        
+        .theme-toggle {
+            min-width: 32px;
+            font-size: 16px;
+        }
+        
+        .empty-nav-left,
+        .empty-nav-right {
+            gap: 6px;
+        }
+    }
+}
+
+/* Landscape orientation on mobile */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .chat-sidebar-header {
+        padding: 10px 15px;
+    }
+    
+    .chat-header {
+        padding: 8px 15px;
+    }
+    
+    .message-input-container {
+        padding: 8px 15px;
+    }
+}
+
+/* Very small screens */
+@media screen and (max-width: 360px) {
+    .chat-title {
+        font-size: 0.9rem;
+    }
+    
+    .chat-sidebar-header h2 {
+        font-size: 1rem;
+    }
+    
+    .send-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+}
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+    .chat-container {
+        height: -webkit-fill-available;
+    }
+}

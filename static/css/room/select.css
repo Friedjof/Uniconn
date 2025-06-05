@@ -12,7 +12,7 @@
 }
 
 .select2-selection {
-    border: 2px solid var(--secondary-text-color) !important;
+    border: 2px solid var(--secondary-border-color) !important;
     height: 45px !important;
 }
 

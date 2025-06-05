@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-07 22:06+0200\n"
+"POT-Creation-Date: 2025-06-02 09:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,7 +108,7 @@ msgstr ""
 
 #: account/templates/login.html:11 account/templates/login.html:15
 #: account/templates/login.html:24 account/templates/register.html:68
-#: templates/components/navbar.html:20
+#: templates/components/navbar.html:31
 msgid "Login"
 msgstr ""
 
@@ -121,7 +121,7 @@ msgid "Register here"
 msgstr ""
 
 #: account/templates/register.html:11 account/templates/register.html:15
-#: templates/components/navbar.html:18
+#: templates/components/navbar.html:29
 msgid "Register"
 msgstr ""
 
@@ -172,24 +172,242 @@ msgstr ""
 msgid "Do you already have an account?"
 msgstr ""
 
-#: homepage/templates/homepage.html:10
+#: homepage/templates/homepage.html:14
 msgid "Homepage"
 msgstr ""
 
-#: homepage/templates/homepage.html:14
-msgid "Welcome to the Homepage"
+#: homepage/templates/homepage.html:19
+msgid "Welcome to Uniconn"
 msgstr ""
 
-#: homepage/templates/homepage.html:15
-msgid "This is the main content area of the homepage."
+#: homepage/templates/homepage.html:20
+msgid "Your smart communication platform for dormitory life"
 msgstr ""
 
-#: homepage/templates/homepage.html:16
-msgid "Here you can add more information about your website or application."
+#: homepage/templates/homepage.html:27
+#: homepage/templates/homepage/search_results.html:19
+msgid "Search chats, rooms, users..."
 msgstr ""
 
-#: homepage/templates/homepage.html:17
-msgid "Feel free to customize this template as per your requirements."
+#: homepage/templates/homepage.html:30
+#: homepage/templates/homepage/search_results.html:22
+msgid "Search"
+msgstr ""
+
+#: homepage/templates/homepage.html:34
+#: homepage/templates/homepage/search_results.html:26
+#: homepage/templates/homepage/search_results.html:86
+msgid "Chats"
+msgstr ""
+
+#: homepage/templates/homepage.html:35
+#: homepage/templates/homepage/search_results.html:27
+#: homepage/templates/homepage/search_results.html:63
+msgid "Rooms"
+msgstr ""
+
+#: homepage/templates/homepage.html:36
+#: homepage/templates/homepage/search_results.html:28
+#: homepage/templates/homepage/search_results.html:42
+msgid "Users"
+msgstr ""
+
+#: homepage/templates/homepage.html:43
+msgid "Platform Overview"
+msgstr ""
+
+#: homepage/templates/homepage.html:51
+msgid "Verified Residents"
+msgstr ""
+
+#: homepage/templates/homepage.html:52 homepage/templates/homepage.html:63
+msgid "of"
+msgstr ""
+
+#: homepage/templates/homepage.html:52 homepage/templates/homepage.html:63
+msgid "total"
+msgstr ""
+
+#: homepage/templates/homepage.html:62
+msgid "Occupied Rooms"
+msgstr ""
+
+#: homepage/templates/homepage.html:73
+msgid "Active Chats"
+msgstr ""
+
+#: homepage/templates/homepage.html:74
+msgid "community wide"
+msgstr ""
+
+#: homepage/templates/homepage.html:84
+msgid "Verification Rate"
+msgstr ""
+
+#: homepage/templates/homepage.html:85
+msgid "security level"
+msgstr ""
+
+#: homepage/templates/homepage.html:97
+msgid "Chat with Neighbors"
+msgstr ""
+
+#: homepage/templates/homepage.html:98
+msgid ""
+"Connect instantly with other residents in your dormitory through our secure "
+"messaging system."
+msgstr ""
+
+#: homepage/templates/homepage.html:99
+#: homepage/templates/homepage/search_results.html:98
+msgid "Open Chat"
+msgstr ""
+
+#: homepage/templates/homepage.html:106
+msgid "Room Management"
+msgstr ""
+
+#: homepage/templates/homepage.html:107
+msgid "Manage your room information and connect with your roommates easily."
+msgstr ""
+
+#: homepage/templates/homepage.html:108
+msgid "Manage Room"
+msgstr ""
+
+#: homepage/templates/homepage.html:115
+msgid "Find Residents"
+msgstr ""
+
+#: homepage/templates/homepage.html:116
+msgid "Discover and connect with other verified residents in your building."
+msgstr ""
+
+#: homepage/templates/homepage.html:117
+msgid "Find People"
+msgstr ""
+
+#: homepage/templates/homepage.html:124
+msgid "Verified Community"
+msgstr ""
+
+#: homepage/templates/homepage.html:125
+msgid ""
+"All users are verified residents, ensuring a safe and trusted environment."
+msgstr ""
+
+#: homepage/templates/homepage.html:126
+msgid "Verification Status"
+msgstr ""
+
+#: homepage/templates/homepage.html:133
+msgid "Personalize"
+msgstr ""
+
+#: homepage/templates/homepage.html:134
+msgid "Customize your experience with different themes and personal settings."
+msgstr ""
+
+#: homepage/templates/homepage.html:135
+msgid "Change Theme"
+msgstr ""
+
+#: homepage/templates/homepage.html:142
+msgid "Multi-Language"
+msgstr ""
+
+#: homepage/templates/homepage.html:143
+msgid "Available in multiple languages to serve our diverse community."
+msgstr ""
+
+#: homepage/templates/homepage/search_results.html:9
+#: homepage/templates/homepage/search_results.html:13
+msgid "Search Results"
+msgstr ""
+
+#: homepage/templates/homepage/search_results.html:36
+msgid "Please enter a search term"
+msgstr ""
+
+#: homepage/templates/homepage/search_results.html:49
+msgid "Last login"
+msgstr ""
+
+#: homepage/templates/homepage/search_results.html:51
+msgid "Never logged in"
+msgstr ""
+
+#: homepage/templates/homepage/search_results.html:71
+msgid "No description available"
+msgstr ""
+
+#: homepage/templates/homepage/search_results.html:75
+msgid "Enter Room"
+msgstr ""
+
+#: homepage/templates/homepage/search_results.html:94
+msgid "No messages yet"
+msgstr ""
+
+#: homepage/templates/homepage/search_results.html:109
+msgid "No results found for"
+msgstr ""
+
+#: homepage/templates/homepage/search_results.html:111
+msgid "Try adjusting your search terms or search options"
+msgstr ""
+
+#: room/forms.py:12
+msgid "Raum"
+msgstr ""
+
+#: room/forms.py:18
+msgid "Raum auswählen"
+msgstr ""
+
+#: room/templates/select.html:13 room/templates/select.html:17
+msgid "Select Apartment"
+msgstr ""
+
+#: room/templates/select.html:23
+msgid "Select"
+msgstr ""
+
+#: templates/admin/import_export/change_list_import_export.html:9
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: templates/admin/import_export/change_list_import_export.html:17
+#: templates/admin/import_export/export.html:10
+#: templates/admin/import_export/export.html:15
+msgid "Export"
+msgstr ""
+
+#: templates/admin/import_export/change_list_import_export.html:23
+#: templates/admin/import_export/import.html:10
+#: templates/admin/import_export/import.html:15
+msgid "Import"
+msgstr ""
+
+#: templates/admin/import_export/export.html:7
+#: templates/admin/import_export/import.html:7
+#: templates/components/navbar.html:7
+msgid "Home"
+msgstr ""
+
+#: templates/admin/import_export/export.html:32
+#: templates/admin/import_export/import.html:25
+#: templates/admin/import_export/import.html:48
+msgid "Submit"
+msgstr ""
+
+#: templates/admin/import_export/import.html:22
+msgid "Click submit to confirm import"
+msgstr ""
+
+#: templates/admin/import_export/import.html:32
+msgid "This importer will import the following fields: "
 msgstr ""
 
 #: templates/components/footer.html:5
@@ -204,30 +422,30 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: templates/components/navbar.html:6
-msgid "Home"
-msgstr ""
-
-#: templates/components/navbar.html:7
+#: templates/components/navbar.html:8
 msgid "Chat"
 msgstr ""
 
-#: templates/components/navbar.html:14
-msgid "Profil"
+#: templates/components/navbar.html:25
+msgid "Hello"
 msgstr ""
 
-#: templates/components/navbar.html:15
+#: templates/components/navbar.html:26
 msgid "Logout"
 msgstr ""
 
-#: uniconn/settings.py:45
+#: uniconn/settings.py:48
 msgid "English"
 msgstr ""
 
-#: uniconn/settings.py:46
+#: uniconn/settings.py:49
 msgid "German"
 msgstr ""
 
-#: uniconn/settings.py:47
+#: uniconn/settings.py:50
 msgid "Turkish"
+msgstr ""
+
+#: uniconn/settings.py:51
+msgid "Russian"
 msgstr ""

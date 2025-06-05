@@ -152,3 +152,85 @@ class ThemeForm(forms.Form):
         if not UserThemes.has_value(theme):
             raise forms.ValidationError(_('Invalid theme selected.'))
         return theme
+
+
+class ProfileForm(forms.ModelForm):
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'readonly': True}),
+        disabled=True
+    )
+    
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email', 'first_name', 'last_name', 'bio']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control', 'rows': 4, 'placeholder': _('Tell us about yourself...')}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        # Make email field read-only
+        self.fields['email'].widget.attrs.update({'readonly': True})
+        self.fields['email'].disabled = True
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if not re.match(r'^[a-zA-Z0-9_.-]+$', username):
+            raise forms.ValidationError(_('Username can only contain letters, numbers, underscores, and hyphens.'))
+        if CustomUser.objects.filter(username=username).exclude(pk=self.user.pk).exists():
+            raise forms.ValidationError(_('Username already exists.'))
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if not re.match(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', email):
+            raise forms.ValidationError(_('Invalid email address.'))
+        if CustomUser.objects.filter(email=email).exclude(pk=self.user.pk).exists():
+            raise forms.ValidationError(_('This email address is already in use.'))
+        return email
+
+
+class PasswordChangeForm(forms.Form):
+    current_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': _('Current Password')})
+    )
+    new_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': _('New Password')})
+    )
+    confirm_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': _('Confirm New Password')})
+    )
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+    def clean_current_password(self):
+        current_password = self.cleaned_data.get('current_password')
+        if self.user and not self.user.check_password(current_password):
+            raise forms.ValidationError(_('Current password is incorrect.'))
+        return current_password
+
+    def clean_new_password(self):
+        new_password = self.cleaned_data.get('new_password')
+        if not re.search(r'[!@#$%^&*(),.?":{}|<>]', new_password):
+            raise forms.ValidationError(_('Password must contain at least one special character.'))
+        if not re.search(r'[A-Z]', new_password):
+            raise forms.ValidationError(_('Password must contain at least one uppercase letter.'))
+        if not re.search(r'[0-9]', new_password):
+            raise forms.ValidationError(_('Password must contain at least one digit.'))
+        if len(new_password) < settings.MIN_PASSWORD_LENGTH:
+            raise forms.ValidationError(_('Password must be at least 16 characters long.'))
+        return new_password
+
+    def clean(self):
+        cleaned_data = super().clean()
+        new_password = self.cleaned_data.get('new_password')
+        confirm_password = self.cleaned_data.get('confirm_password')
+        if new_password and confirm_password and new_password != confirm_password:
+            raise forms.ValidationError(_('Passwords do not match.'))
+        return cleaned_data

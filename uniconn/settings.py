@@ -66,6 +66,7 @@ AUTH_USER_MODEL = 'account.CustomUser'
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,6 +77,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'rest_framework',
     'django_select2',
+    'channels',
 
     'homepage',
     'account',
@@ -124,6 +126,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'uniconn.wsgi.application'
+ASGI_APPLICATION = 'uniconn.asgi.application'
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -196,6 +199,26 @@ CACHES = {
 }
 
 SELECT2_CACHE_BACKEND = "select2"
+
+# Channel layers for WebSocket support
+if is_running_in_docker() or os.environ.get('REDIS_URL'):
+    # Use Redis for production/Docker
+    REDIS_URL = os.environ.get('REDIS_URL', 'redis://redis:6379')
+    CHANNEL_LAYERS = {
+        'default': {
+            'BACKEND': 'channels_redis.core.RedisChannelLayer',
+            'CONFIG': {
+                "hosts": [REDIS_URL],
+            },
+        },
+    }
+else:
+    # Use in-memory channel layer for development
+    CHANNEL_LAYERS = {
+        'default': {
+            'BACKEND': 'channels.layers.InMemoryChannelLayer'
+        }
+    }
 
 
 # Password validation

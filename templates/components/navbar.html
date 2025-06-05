@@ -1,4 +1,5 @@
 {% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 
 <div class="fade-effect">
     <nav>
@@ -11,6 +12,14 @@
                 <button id="theme-toggle">{% if is_dark %}🌜{% else %}🌞{% endif %}</button>
                 <div style="display: none;" id="set_theme_url">{% url 'account:set_theme' %}</div>
                 <div style="display: none;" id="get_theme_url">{% url 'account:get_theme' %}</div>
+            </li>
+            <li class="language-selector">
+                <select id="language-select" onchange="changeLanguage(this.value)">
+                    <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>🇺🇸 English</option>
+                    <option value="de" {% if LANGUAGE_CODE == 'de' %}selected{% endif %}>🇩🇪 Deutsch</option>
+                    <option value="ru" {% if LANGUAGE_CODE == 'ru' %}selected{% endif %}>🇷🇺 Русский</option>
+                    <option value="tr" {% if LANGUAGE_CODE == 'tr' %}selected{% endif %}>🇹🇷 Türkçe</option>
+                </select>
             </li>
             {% if user.is_authenticated %}
                 <li><a href="/account/profile/">{% trans "Hello" %}, {{ user.username }}</a></li>

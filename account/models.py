@@ -72,6 +72,12 @@ class CustomUser(AbstractUser):
         default=UserThemes.CLASSIC,
     )
 
+    bio = models.TextField(
+        max_length=500,
+        blank=True,
+        help_text="Tell us about yourself"
+    )
+
     def email_is_verified(self) -> bool:
         return EmailVerification.objects.filter(user=self, verified=True).exists()
 

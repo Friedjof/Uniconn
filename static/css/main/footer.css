@@ -8,6 +8,7 @@ footer {
     background-color: var(--secondary-background-color);
     margin: 0 15px;
     border-radius: 10px 10px 0 0;
+    border-top: 2px solid var(--primary-color);
 }
 
 .footer-content {

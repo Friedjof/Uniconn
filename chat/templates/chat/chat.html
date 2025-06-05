@@ -1,0 +1,308 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/chat/chat.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chat/chat-mobile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chat/user-profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chat/chat-header-actions.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chat/chat-sidebar-toggle.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/chat/chat.js' %}"></script>
+    <script src="{% static 'js/chat/sidebar-toggle.js' %}"></script>
+{% endblock %}
+
+{% block title %}{% trans "Chat" %}{% endblock %}
+
+{% block content %}
+<div class="chat-container">
+    <!-- Chat-Seitenleiste -->
+    <div class="chat-sidebar" id="chatSidebar">
+        <div class="chat-sidebar-header">
+            <div class="header-left">
+                <a href="{% url 'homepage:index' %}" class="nav-btn home-btn" title="{% trans 'Home' %}">
+                    <i class="fa fa-home"></i>
+                    <span class="home-text">{% trans "Back" %}</span>
+                </a>
+            </div>
+            <div class="header-center">
+                <h2>
+                    <i class="fa fa-comments"></i>
+                    {% trans "Chats" %}
+                </h2>
+            </div>
+            <div class="header-right">
+                <button class="new-chat-btn" id="newChatBtn">
+                    <i class="fa fa-plus"></i>
+                    <span>{% trans "New Chat" %}</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Such-Leiste für Chats -->
+        <div class="chat-search">
+            <div class="search-input-container">
+                <input type="text" id="chatSearch" placeholder="{% trans 'Search chats...' %}" class="search-input">
+                <i class="fa fa-search search-icon"></i>
+            </div>
+        </div>
+        
+        <!-- Chat-Liste -->
+        <div class="chat-list" id="chatList">
+            {% for chat_data in chat_list %}
+                <div class="chat-item {% if active_chat_id == chat_data.chat.chat_id|stringformat:'s' %}active{% endif %}" 
+                     data-chat-id="{{ chat_data.chat.chat_id }}" 
+                     onclick="openChat('{{ chat_data.chat.chat_id }}')">
+                    <div class="chat-avatar">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <div class="chat-info">
+                        <div class="chat-header">
+                            <h4 class="chat-name">
+                                {% for user in chat_data.other_users %}
+                                    {{ user.username }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </h4>
+                            {% if chat_data.last_message %}
+                                <span class="chat-time">{{ chat_data.last_message.timestamp|date:"H:i" }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="chat-preview">
+                            {% if chat_data.last_message %}
+                                <span class="last-message">
+                                    {% if chat_data.last_message.sender == user %}
+                                        {% trans "You" %}: 
+                                    {% endif %}
+                                    {{ chat_data.last_message.content|truncatechars:50 }}
+                                </span>
+                            {% else %}
+                                <span class="no-messages">{% trans "No messages yet" %}</span>
+                            {% endif %}
+                            {% if chat_data.unread_count > 0 %}
+                                <span class="unread-badge">{{ chat_data.unread_count }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="no-chats">
+                    <i class="fa fa-comments-o"></i>
+                    <p>{% trans "No chats yet" %}</p>
+                    <button class="start-chat-btn" id="startFirstChat">
+                        {% trans "Start your first chat" %}
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Chat-Hauptbereich -->
+    <div class="chat-main" id="chatMain">
+        {% if active_chat %}
+            <!-- Chat-Header -->
+            <div class="chat-header">
+                <!-- Left section with user profile and navigation -->
+                <div class="chat-header-nav">
+                    <!-- Current user profile with online status -->
+                    <div class="current-user-profile">
+                        <div class="user-avatar-container">
+                            <div class="user-avatar">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="online-status-indicator"></div>
+                        </div>
+                        <div class="user-profile-info">
+                            <span class="user-profile-name">{{ user.username }}</span>
+                            <span class="user-online-status">{% trans "Online" %}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat info section -->
+                    <div class="chat-header-info">
+                        <div class="chat-avatar">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="chat-details">
+                            <h3 class="chat-title">
+                                {% for user in other_users_in_chat %}
+                                    {{ user.username }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </h3>
+                            <span class="chat-status" id="chatStatus">{% trans "Online" %}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right section with actions and user controls -->
+                <div class="chat-actions">
+                    <button class="chat-action-btn mobile-toggle" id="sidebarToggle" title="{% trans 'Toggle sidebar' %}">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <div class="chat-action-group">
+                        <button class="nav-btn theme-toggle" id="chatThemeToggle" title="{% trans 'Toggle theme' %}">
+                            {% if is_dark %}🌜{% else %}🌞{% endif %}
+                        </button>
+                        <div class="action-separator"></div>
+                        <a href="/account/profile/" class="nav-btn profile-btn" title="{% trans 'Profile' %}">
+                            <i class="fa fa-user-circle"></i>
+                            <span class="username-text">{% trans "Profile" %}</span>
+                        </a>
+                        <a href="{% url 'account:logout' %}" class="nav-btn logout-btn" title="{% trans 'Logout' %}">
+                            <i class="fa fa-sign-out"></i>
+                            <span class="logout-text">{% trans 'Logout' %}</span>
+                        </a>
+                    </div>
+                    <button class="chat-action-btn close-chat-btn" id="closeChatBtn" title="{% trans 'Close chat' %}">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Nachrichten-Bereich -->
+            <div class="messages-container" id="messagesContainer">
+                <div class="messages-wrapper" id="messagesWrapper">
+                    {% for message in chat_messages %}
+                        <div class="message {% if message.sender == user %}own{% else %}other{% endif %}" 
+                             data-message-id="{{ message.message_id }}">
+                            <div class="message-content">
+                                <div class="message-text">{{ message.content }}</div>
+                                <div class="message-meta">
+                                    <span class="message-time">{{ message.timestamp|date:"H:i" }}</span>
+                                    {% if message.sender == user %}
+                                        <span class="message-status">
+                                            {% if message.status == 'sent' %}
+                                                <i class="fa fa-check"></i>
+                                            {% elif message.status == 'delivered' %}
+                                                <i class="fa fa-check-double"></i>
+                                            {% elif message.status == 'read' %}
+                                                <i class="fa fa-check-double read"></i>
+                                            {% endif %}
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div id="typingIndicator" class="typing-indicator-container"></div>
+            </div>
+            
+            <!-- Eingabe-Bereich -->
+            <div class="message-input-container">
+                <form id="messageForm" class="message-form">
+                    {% csrf_token %}
+                    <input type="hidden" id="chatId" value="{{ active_chat.chat_id }}">
+                    <div class="input-wrapper">
+                        <textarea id="messageInput" 
+                                placeholder="{% trans 'Type a message...' %}" 
+                                class="message-input"
+                                rows="1"></textarea>
+                    </div>
+                    <button type="submit" class="send-btn" id="sendBtn">
+                        📩
+                    </button>
+                </form>
+            </div>
+        {% else %}
+            <!-- Leerer Zustand mit Navigation -->
+            <div class="chat-empty">
+                <!-- Navigation Header für Empty State -->
+                <div class="empty-state-header">
+                    <!-- Current user profile with online status -->
+                    <div class="empty-nav-left">
+                        <div class="current-user-profile">
+                            <div class="user-avatar-container">
+                                <div class="user-avatar">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <div class="online-status-indicator"></div>
+                            </div>
+                            <div class="user-profile-info">
+                                <span class="user-profile-name">{{ user.username }}</span>
+                                <span class="user-online-status">{% trans "Online" %}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="empty-nav-right">
+                        <div class="chat-action-group">
+                            <button class="nav-btn theme-toggle" id="emptyThemeToggle" title="{% trans 'Toggle theme' %}">
+                                {% if is_dark %}🌜{% else %}🌞{% endif %}
+                            </button>
+                            <a href="/account/profile/" class="nav-btn profile-btn" title="{% trans 'Profile' %}">
+                                <i class="fa fa-user-circle"></i>
+                                <span class="username-text">{% trans "Profile" %}</span>
+                            </a>
+                            <a href="{% url 'account:logout' %}" class="nav-btn logout-btn" title="{% trans 'Logout' %}">
+                                <i class="fa fa-sign-out"></i>
+                                <span class="logout-text">{% trans 'Logout' %}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="empty-chat-content">
+                    <i class="fa fa-comments-o"></i>
+                    <h3>{% trans "Welcome to Chat" %}</h3>
+                    <p>{% trans "Select a chat to start messaging or create a new chat." %}</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Modal für neuen Chat -->
+<div class="modal" id="newChatModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>{% trans "Start New Chat" %}</h3>
+            <button class="modal-close" id="modalClose">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="user-search">
+                <input type="text" id="userSearch" placeholder="{% trans 'Search users...' %}" class="search-input">
+            </div>
+            <div class="user-list" id="userList">
+                {% for available_user in available_users %}
+                    <div class="user-item" data-user-id="{{ available_user.id }}" onclick="startChat({{ available_user.id }})">
+                        <div class="user-avatar">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="user-info">
+                            <h4>{{ available_user.username }}</h4>
+                            {% if available_user.first_name or available_user.last_name %}
+                                <span class="user-name">{{ available_user.first_name }} {{ available_user.last_name }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript Variablen für AJAX -->
+<script>
+    const CHAT_URLS = {
+        startChat: "{% url 'chat:start_chat' %}",
+        sendMessage: "{% url 'chat:send_message' %}",
+        getMessages: "{% url 'chat:get_messages' chat_id='00000000-0000-0000-0000-000000000000' %}".replace('00000000-0000-0000-0000-000000000000/', ''),
+        chatDetail: "/chat/"
+    };
+    
+    const CURRENT_USER_ID = {{ user.id }};
+    const CSRF_TOKEN = "{{ csrf_token }}";
+    
+    // Check if user is authenticated
+    {% if user.is_authenticated %}
+        const IS_AUTHENTICATED = true;
+    {% else %}
+        const IS_AUTHENTICATED = false;
+    {% endif %}
+</script>
+{% endblock %}

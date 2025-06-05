@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-18 21:59+0200\n"
+"POT-Creation-Date: 2025-06-02 09:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,114 +19,117 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-#: .\account\forms.py:14
+
+#: account/forms.py:14
 msgid "Username"
 msgstr "Пользователь"
 
-#: .\account\forms.py:17
+#: account/forms.py:17
 msgid "E-Mail"
 msgstr "Эл. почта"
 
-#: .\account\forms.py:21 .\account\forms.py:106
+#: account/forms.py:21 account/forms.py:106
 msgid "Password"
 msgstr "Пароль"
 
-#: .\account\forms.py:25
+#: account/forms.py:25
 msgid "Confirm Password"
 msgstr "Подтвердить пароль"
 
-#: .\account\forms.py:29 .\account\forms.py:35
+#: account/forms.py:29 account/forms.py:35
 msgid "I agree to the"
 msgstr "Я соглашаюсь с"
 
-#: .\account\forms.py:43
+#: account/forms.py:43
 msgid "Password must contain at least one special character."
 msgstr "Пароль должен содержать минимум один специальный символ."
 
-#: .\account\forms.py:45
+#: account/forms.py:45
 msgid "Password must contain at least one uppercase letter."
 msgstr "Пароль должен содержать минимум одну заглавную букву."
 
-#: .\account\forms.py:47
+#: account/forms.py:47
 msgid "Password must contain at least one digit."
 msgstr "Пароль должен содержать минимум одну цифру."
 
-#: .\account\forms.py:49
+#: account/forms.py:49
 msgid "Password must be at least 16 characters long."
 msgstr "Пароль должен быть длиной минимум в 16 символов."
 
-#: .\account\forms.py:55
+#: account/forms.py:55
 msgid "Username can only contain letters, numbers, underscores, and hyphens."
-msgstr "Пользовательское имя может содержать только буквы, цифры, подчёркивания и дефисы."
+msgstr ""
+"Пользовательское имя может содержать только буквы, цифры, подчёркивания и "
+"дефисы."
 
-#: .\account\forms.py:57
+#: account/forms.py:57
 msgid "Username already exists."
 msgstr "Пользователь уже существует."
 
-#: .\account\forms.py:63
+#: account/forms.py:63
 msgid "Invalid email address."
 msgstr "Неправильный адрес эл. почты."
 
-#: .\account\forms.py:65
+#: account/forms.py:65
 msgid "This email address is already registered."
 msgstr "Данная эл. почта уже зарегистрирована."
 
-#: .\account\forms.py:71
+#: account/forms.py:71
 msgid "You must agree to the terms of service."
 msgstr "Вы должны согласиться с условиями сервиса."
 
-#: .\account\forms.py:77
+#: account/forms.py:77
 msgid "You must agree to the privacy policy."
 msgstr "Вы должны согласиться с политикой конфиденциальности."
 
-#: .\account\forms.py:85
+#: account/forms.py:85
 msgid "Passwords do not match."
 msgstr "Пароли не совпадают."
 
-#: .\account\forms.py:102
+#: account/forms.py:102
 msgid "E-Mail or Username"
 msgstr "Эл. почта или пользователь."
 
-#: .\account\forms.py:112
+#: account/forms.py:112
 msgid "Username or email address does not exist."
 msgstr "Пользователь или эл. почта не существуют."
 
-#: .\account\forms.py:123
+#: account/forms.py:123
 msgid "Incorrect password."
 msgstr "Неправильный пароль."
 
-#: .\account\forms.py:125
+#: account/forms.py:125
 msgid "This account is inactive."
 msgstr "Данный пользователь неактивен."
 
-#: .\account\forms.py:137 .\account\forms.py:141
+#: account/forms.py:137 account/forms.py:141
 msgid "Verification Code"
 msgstr "Код подтверждения."
 
-#: .\account\forms.py:153
+#: account/forms.py:153
 msgid "Invalid theme selected."
 msgstr "Выбрана неправильная тема."
 
-#: .\account\templates\login.html:11 .\account\templates\login.html:15
-#: .\account\templates\login.html:24 .\account\templates\register.html:68
-#: .\templates\components\navbar.html:22
+#: account/templates/login.html:11 account/templates/login.html:15
+#: account/templates/login.html:24 account/templates/register.html:68
+#: templates/components/navbar.html:31
 msgid "Login"
 msgstr "Логин"
 
-#: .\account\templates\login.html:26
+#: account/templates/login.html:26
 msgid "No account yet?"
 msgstr "Нет ещё аккаунта?"
 
-#: .\account\templates\login.html:26
+#: account/templates/login.html:26
 msgid "Register here"
 msgstr "Зарегистрироваться здесь"
 
-#: .\account\templates\register.html:11 .\account\templates\register.html:15
-#: .\templates\components\navbar.html:20
+#: account/templates/register.html:11 account/templates/register.html:15
+#: templates/components/navbar.html:29
 msgid "Register"
 msgstr "Зарегистрироваться"
 
-#: .\account\templates\register.html:33
+#: account/templates/register.html:33
 #, python-format
 msgid ""
 "\n"
@@ -135,11 +138,11 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"                Убедитесь, что Ваш %(bold_start)sпароль%(bold_end)s "
-"хотя бы %(bold_start)s%(min_len)s символов %(bold_end)s в длину и содержит:\n"
+"                Убедитесь, что Ваш %(bold_start)sпароль%(bold_end)s хотя бы "
+"%(bold_start)s%(min_len)s символов %(bold_end)s в длину и содержит:\n"
 "            "
 
-#: .\account\templates\register.html:40
+#: account/templates/register.html:40
 #, python-format
 msgid ""
 "\n"
@@ -152,7 +155,7 @@ msgstr ""
 "z)%(bold_end)s\n"
 "                    "
 
-#: .\account\templates\register.html:45
+#: account/templates/register.html:45
 #, python-format
 msgid ""
 "\n"
@@ -163,91 +166,334 @@ msgstr ""
 "                        Цифры %(bold_start)s(0-9)%(bold_end)s\n"
 "                    "
 
-#: .\account\templates\register.html:50
+#: account/templates/register.html:50
 #, python-format
 msgid ""
 "\n"
-"                        Special characters %(bold_start)s(!@#$%%^&*)"
-"%(bold_end)s\n"
+"                        Special characters %(bold_start)s(!@#$"
+"%%^&*)%(bold_end)s\n"
 "                    "
 msgstr ""
 "\n"
-"                        Специальные символы %(bold_start)s(!@#$%%^&*)"
-"%(bold_end)s\n"
+"                        Специальные символы %(bold_start)s(!@#$"
+"%%^&*)%(bold_end)s\n"
 "                    "
 
-#: .\account\templates\register.html:58
+#: account/templates/register.html:58
 msgid "Terms of Service"
 msgstr "Политикой сервиса"
 
-#: .\account\templates\register.html:62 .\templates\components\footer.html:8
+#: account/templates/register.html:62 templates/components/footer.html:8
 msgid "Privacy Policy"
 msgstr "Политикой конфиденциальности"
 
-#: .\account\templates\register.html:68
+#: account/templates/register.html:68
 msgid "Do you already have an account?"
 msgstr "У Вас уже есть аккаунт?"
 
-#: .\homepage\templates\homepage.html:10
+#: homepage/templates/homepage.html:14
 msgid "Homepage"
 msgstr "Домашняя страница"
 
-#: .\homepage\templates\homepage.html:14
-msgid "Welcome to the Homepage"
-msgstr "Добро пожаловать на домашнюю страницу"
+#: homepage/templates/homepage.html:19
+msgid "Welcome to Uniconn"
+msgstr ""
 
-#: .\homepage\templates\homepage.html:15
-msgid "This is the main content area of the homepage."
-msgstr "Это основное содержание домашней страницы."
+#: homepage/templates/homepage.html:20
+msgid "Your smart communication platform for dormitory life"
+msgstr ""
 
-#: .\homepage\templates\homepage.html:16
-msgid "Here you can add more information about your website or application."
-msgstr "Здесь вы можете добавить больше информации о вашем сайте или приложении."
+#: homepage/templates/homepage.html:27
+#: homepage/templates/homepage/search_results.html:19
+msgid "Search chats, rooms, users..."
+msgstr ""
 
-#: .\homepage\templates\homepage.html:17
-msgid "Feel free to customize this template as per your requirements."
-msgstr "Вы можете свободно настраивать этот шаблон в соотвествии с тревобаниями."
+#: homepage/templates/homepage.html:30
+#: homepage/templates/homepage/search_results.html:22
+msgid "Search"
+msgstr ""
 
-#: .\templates\components\footer.html:5
-msgid "Because we’re better together."
-msgstr "Потому что вместе мы лучше."
+#: homepage/templates/homepage.html:34
+#: homepage/templates/homepage/search_results.html:26
+#: homepage/templates/homepage/search_results.html:86
+#, fuzzy
+#| msgid "Chat"
+msgid "Chats"
+msgstr "Беседа"
 
-#: .\templates\components\footer.html:7
-msgid "Imprint"
-msgstr "Отпечаток"
+#: homepage/templates/homepage.html:35
+#: homepage/templates/homepage/search_results.html:27
+#: homepage/templates/homepage/search_results.html:63
+msgid "Rooms"
+msgstr ""
 
-#: .\templates\components\footer.html:9
-msgid "Contact"
-msgstr "Контакт"
+#: homepage/templates/homepage.html:36
+#: homepage/templates/homepage/search_results.html:28
+#: homepage/templates/homepage/search_results.html:42
+#, fuzzy
+#| msgid "Username"
+msgid "Users"
+msgstr "Пользователь"
 
-#: .\templates\components\navbar.html:6
+#: homepage/templates/homepage.html:43
+msgid "Platform Overview"
+msgstr ""
+
+#: homepage/templates/homepage.html:51
+msgid "Verified Residents"
+msgstr ""
+
+#: homepage/templates/homepage.html:52 homepage/templates/homepage.html:63
+msgid "of"
+msgstr ""
+
+#: homepage/templates/homepage.html:52 homepage/templates/homepage.html:63
+msgid "total"
+msgstr ""
+
+#: homepage/templates/homepage.html:62
+msgid "Occupied Rooms"
+msgstr ""
+
+#: homepage/templates/homepage.html:73
+msgid "Active Chats"
+msgstr ""
+
+#: homepage/templates/homepage.html:74
+msgid "community wide"
+msgstr ""
+
+#: homepage/templates/homepage.html:84
+#, fuzzy
+#| msgid "Verification Code"
+msgid "Verification Rate"
+msgstr "Код подтверждения."
+
+#: homepage/templates/homepage.html:85
+msgid "security level"
+msgstr ""
+
+#: homepage/templates/homepage.html:97
+msgid "Chat with Neighbors"
+msgstr ""
+
+#: homepage/templates/homepage.html:98
+msgid ""
+"Connect instantly with other residents in your dormitory through our secure "
+"messaging system."
+msgstr ""
+
+#: homepage/templates/homepage.html:99
+#: homepage/templates/homepage/search_results.html:98
+#, fuzzy
+#| msgid "Chat"
+msgid "Open Chat"
+msgstr "Беседа"
+
+#: homepage/templates/homepage.html:106
+msgid "Room Management"
+msgstr ""
+
+#: homepage/templates/homepage.html:107
+msgid "Manage your room information and connect with your roommates easily."
+msgstr ""
+
+#: homepage/templates/homepage.html:108
+msgid "Manage Room"
+msgstr ""
+
+#: homepage/templates/homepage.html:115
+msgid "Find Residents"
+msgstr ""
+
+#: homepage/templates/homepage.html:116
+msgid "Discover and connect with other verified residents in your building."
+msgstr ""
+
+#: homepage/templates/homepage.html:117
+msgid "Find People"
+msgstr ""
+
+#: homepage/templates/homepage.html:124
+msgid "Verified Community"
+msgstr ""
+
+#: homepage/templates/homepage.html:125
+msgid ""
+"All users are verified residents, ensuring a safe and trusted environment."
+msgstr ""
+
+#: homepage/templates/homepage.html:126
+#, fuzzy
+#| msgid "Verification Code"
+msgid "Verification Status"
+msgstr "Код подтверждения."
+
+#: homepage/templates/homepage.html:133
+msgid "Personalize"
+msgstr ""
+
+#: homepage/templates/homepage.html:134
+msgid "Customize your experience with different themes and personal settings."
+msgstr ""
+
+#: homepage/templates/homepage.html:135
+msgid "Change Theme"
+msgstr ""
+
+#: homepage/templates/homepage.html:142
+msgid "Multi-Language"
+msgstr ""
+
+#: homepage/templates/homepage.html:143
+msgid "Available in multiple languages to serve our diverse community."
+msgstr ""
+
+#: homepage/templates/homepage/search_results.html:9
+#: homepage/templates/homepage/search_results.html:13
+msgid "Search Results"
+msgstr ""
+
+#: homepage/templates/homepage/search_results.html:36
+msgid "Please enter a search term"
+msgstr ""
+
+#: homepage/templates/homepage/search_results.html:49
+#, fuzzy
+#| msgid "Login"
+msgid "Last login"
+msgstr "Логин"
+
+#: homepage/templates/homepage/search_results.html:51
+msgid "Never logged in"
+msgstr ""
+
+#: homepage/templates/homepage/search_results.html:71
+msgid "No description available"
+msgstr ""
+
+#: homepage/templates/homepage/search_results.html:75
+msgid "Enter Room"
+msgstr ""
+
+#: homepage/templates/homepage/search_results.html:94
+msgid "No messages yet"
+msgstr ""
+
+#: homepage/templates/homepage/search_results.html:109
+msgid "No results found for"
+msgstr ""
+
+#: homepage/templates/homepage/search_results.html:111
+msgid "Try adjusting your search terms or search options"
+msgstr ""
+
+#: room/forms.py:12
+msgid "Raum"
+msgstr ""
+
+#: room/forms.py:18
+msgid "Raum auswählen"
+msgstr ""
+
+#: room/templates/select.html:13 room/templates/select.html:17
+msgid "Select Apartment"
+msgstr ""
+
+#: room/templates/select.html:23
+msgid "Select"
+msgstr ""
+
+#: templates/admin/import_export/change_list_import_export.html:9
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: templates/admin/import_export/change_list_import_export.html:17
+#: templates/admin/import_export/export.html:10
+#: templates/admin/import_export/export.html:15
+msgid "Export"
+msgstr ""
+
+#: templates/admin/import_export/change_list_import_export.html:23
+#: templates/admin/import_export/import.html:10
+#: templates/admin/import_export/import.html:15
+msgid "Import"
+msgstr ""
+
+#: templates/admin/import_export/export.html:7
+#: templates/admin/import_export/import.html:7
+#: templates/components/navbar.html:7
 msgid "Home"
 msgstr "Домашняя страница"
 
-#: .\templates\components\navbar.html:7
+#: templates/admin/import_export/export.html:32
+#: templates/admin/import_export/import.html:25
+#: templates/admin/import_export/import.html:48
+msgid "Submit"
+msgstr ""
+
+#: templates/admin/import_export/import.html:22
+msgid "Click submit to confirm import"
+msgstr ""
+
+#: templates/admin/import_export/import.html:32
+msgid "This importer will import the following fields: "
+msgstr ""
+
+#: templates/components/footer.html:5
+msgid "Because we’re better together."
+msgstr "Потому что вместе мы лучше."
+
+#: templates/components/footer.html:7
+msgid "Imprint"
+msgstr "Отпечаток"
+
+#: templates/components/footer.html:9
+msgid "Contact"
+msgstr "Контакт"
+
+#: templates/components/navbar.html:8
 msgid "Chat"
 msgstr "Беседа"
 
-#: .\templates\components\navbar.html:16
-msgid "Profil"
-msgstr "Профиль"
+#: templates/components/navbar.html:25
+msgid "Hello"
+msgstr ""
 
-#: .\templates\components\navbar.html:17
+#: templates/components/navbar.html:26
 msgid "Logout"
 msgstr "Выход"
 
-#: .\uniconn\settings.py:45
+#: uniconn/settings.py:48
 msgid "English"
 msgstr "Английский"
 
-#: .\uniconn\settings.py:46
+#: uniconn/settings.py:49
 msgid "German"
 msgstr "Немецкий"
 
-#: .\uniconn\settings.py:47
+#: uniconn/settings.py:50
 msgid "Turkish"
 msgstr "Турецкий"
 
-#: .\uniconn\settings.py:48
+#: uniconn/settings.py:51
 msgid "Russian"
 msgstr "Русский"
+
+#~ msgid "Welcome to the Homepage"
+#~ msgstr "Добро пожаловать на домашнюю страницу"
+
+#~ msgid "This is the main content area of the homepage."
+#~ msgstr "Это основное содержание домашней страницы."
+
+#~ msgid "Here you can add more information about your website or application."
+#~ msgstr ""
+#~ "Здесь вы можете добавить больше информации о вашем сайте или приложении."
+
+#~ msgid "Feel free to customize this template as per your requirements."
+#~ msgstr ""
+#~ "Вы можете свободно настраивать этот шаблон в соотвествии с тревобаниями."
+
+#~ msgid "Profil"
+#~ msgstr "Профиль"

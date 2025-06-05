@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from .forms import RegisterForm, LoginForm, VerifyForm, VerifyEmailForm, ThemeForm
+from .forms import RegisterForm, LoginForm, VerifyForm, VerifyEmailForm, ThemeForm, ProfileForm, PasswordChangeForm
 from .models import CustomUser, UserRole, EmailVerification, UserThemes
 from .mixins import (
     GuestOrUnauthenticatedMixin, 
@@ -190,3 +190,51 @@ class VerifyView(RoomRequiredMixin, TemplateView):
                 form.add_error('code', 'Invalid verification code')
 
         return render(request, self.template_name, {'form': form})
+
+
+class ProfileView(AuthenticationRequiredMixin, TemplateView):
+    template_name = 'profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile_form'] = ProfileForm(instance=self.request.user, user=self.request.user)
+        context['password_form'] = PasswordChangeForm(user=self.request.user)
+        context['theme_form'] = ThemeForm(initial={'theme': UserThemes(self.request.user.theme).label})
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form_type = request.POST.get('form_type')
+        
+        if form_type == 'profile':
+            profile_form = ProfileForm(request.POST, instance=request.user, user=request.user)
+            if profile_form.is_valid():
+                # If email changed, set email verification to False
+                old_email = request.user.email
+                profile_form.save()
+                if old_email != profile_form.cleaned_data['email']:
+                    # Reset email verification if email changed
+                    EmailVerification.objects.filter(user=request.user).update(verified=False)
+                    email_verification, _ = EmailVerification.objects.get_or_create(user=request.user)
+                    email_verification.send_verification_email()
+                    return redirect('account:email_verification')
+                return redirect('account:profile')
+            else:
+                context = self.get_context_data()
+                context['profile_form'] = profile_form
+                return render(request, self.template_name, context)
+        
+        elif form_type == 'password':
+            password_form = PasswordChangeForm(request.POST, user=request.user)
+            if password_form.is_valid():
+                request.user.set_password(password_form.cleaned_data['new_password'])
+                request.user.save()
+                # Re-authenticate user after password change
+                from django.contrib.auth import update_session_auth_hash
+                update_session_auth_hash(request, request.user)
+                return redirect('account:profile')
+            else:
+                context = self.get_context_data()
+                context['password_form'] = password_form
+                return render(request, self.template_name, context)
+        
+        return redirect('account:profile')
