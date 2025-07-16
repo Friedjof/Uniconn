@@ -1,0 +1,160 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  INACTIVE
+  USER
+  VERIFIED
+  MODERATOR
+  ADMIN
+  SUPERADMIN
+}
+
+enum Theme {
+  LIGHT
+  DARK
+  BLUE
+  GREEN
+  PURPLE
+  ORANGE
+  PINK
+  YELLOW
+  RED
+  TEAL
+  INDIGO
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  password      String
+  firstName     String
+  lastName      String
+  bio           String?
+  profilePicture String?
+  role          UserRole @default(USER)
+  theme         Theme    @default(LIGHT)
+  language      String   @default("en")
+  isActive      Boolean  @default(true)
+  isTenantVerified Boolean @default(false)
+  termsAccepted Boolean  @default(false)
+  privacyAccepted Boolean @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  room              Room?              @relation(fields: [roomId], references: [id])
+  roomId            String?
+  emailVerification EmailVerification?
+  tenantVerification TenantVerification?
+  
+  // Chat relations
+  chatsAsParticipant ChatParticipant[]
+  messages          Message[]
+  
+  @@map("users")
+}
+
+model Room {
+  id          String   @id @default(cuid())
+  name        String
+  building    String
+  floor       Int
+  number      String
+  capacity    Int      @default(2)
+  description String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  users User[]
+  
+  @@unique([building, floor, number])
+  @@map("rooms")
+}
+
+model EmailVerification {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  verificationCode String @unique
+  isVerified    Boolean  @default(false)
+  expiresAt     DateTime
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("email_verifications")
+}
+
+model TenantVerification {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  verificationCode String @unique
+  isVerified    Boolean  @default(false)
+  expiresAt     DateTime
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("tenant_verifications")
+}
+
+model Chat {
+  id          String   @id @default(cuid())
+  name        String?
+  isGroup     Boolean  @default(false)
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  participants ChatParticipant[]
+  messages     Message[]
+  
+  @@map("chats")
+}
+
+model ChatParticipant {
+  id       String   @id @default(cuid())
+  chatId   String
+  userId   String
+  joinedAt DateTime @default(now())
+  
+  // Relations
+  chat Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([chatId, userId])
+  @@map("chat_participants")
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  chatId    String
+  userId    String
+  content   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  chat Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("messages")
+}
