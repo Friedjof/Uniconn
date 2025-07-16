@@ -1,0 +1,209 @@
+╭───────────────────────────────────────────────────────╮
+│ ✻ Welcome to Claude Code!                             │
+│                                                       │
+│   /help for help, /status for your current setup      │
+│                                                       │
+│   cwd: /home/friedjof/Dokumente/repositories/Uniconn  │
+╰───────────────────────────────────────────────────────╯
+
+ Tips for getting started:
+
+ 1. Run /init to create a CLAUDE.md file with instructions for Claude
+ 2. Use Claude to help with file analysis, editing, bash commands and git
+ 3. Be as specific as you would with another engineer for the best results
+ 4. ✔ Run /terminal-setup to set up terminal integration
+
+> schau dir das projekt an und die strucktur und models. ich will das danach löschen und in next.js wieder aufbauen
+
+● I'll analyze the project structure and models to help you understand the codebase before rebuilding it in Next.js.
+
+● Update Todos
+  ⎿  ☐ Analyze project structure and directory layout
+     ☐ Examine models and database schema
+     ☐ Review API structure and endpoints
+     ☐ Analyze frontend components and views
+     ☐ Document key features and functionality
+
+● List(.)
+  ⎿  Listed 169 paths (ctrl+r to expand)
+
+● Read(package.json)
+  ⎿  Error: File does not exist.
+
+● Read(README.md)
+  ⎿  Read 206 lines (ctrl+r to expand)
+
+● Update Todos
+  ⎿  ☒ Analyze project structure and directory layout
+     ☐ Examine models and database schema
+     ☐ Review API structure and endpoints
+     ☐ Analyze frontend components and views
+     ☐ Document key features and functionality
+
+● Read(account/models.py)
+  ⎿  Read 113 lines (ctrl+r to expand)
+
+● Read(chat/models.py)
+  ⎿  Read 39 lines (ctrl+r to expand)
+
+● Read(room/models.py)
+  ⎿  Read 25 lines (ctrl+r to expand)
+
+● Read(homepage/models.py)
+  ⎿  Read 4 lines (ctrl+r to expand)
+
+● Update Todos
+  ⎿  ☒ Analyze project structure and directory layout
+     ☒ Examine models and database schema
+     ☐ Review API structure and endpoints
+     ☐ Analyze frontend components and views
+     ☐ Document key features and functionality
+
+● Read(account/urls.py)
+  ⎿  Read 16 lines (ctrl+r to expand)
+
+● Read(chat/urls.py)
+  ⎿  Read 13 lines (ctrl+r to expand)
+
+● Read(room/urls.py)
+  ⎿  Read 9 lines (ctrl+r to expand)
+
+● Read(homepage/urls.py)
+  ⎿  Read 11 lines (ctrl+r to expand)
+
+● Read(uniconn/urls.py)
+  ⎿  Read 35 lines (ctrl+r to expand)
+
+● Update Todos
+  ⎿  ☒ Analyze project structure and directory layout
+     ☒ Examine models and database schema
+     ☒ Review API structure and endpoints
+     ☐ Analyze frontend components and views
+     ☐ Document key features and functionality
+
+● Read(templates/base.html)
+  ⎿  Read 47 lines (ctrl+r to expand)
+
+● Read(account/templates/login.html)
+  ⎿  Read 36 lines (ctrl+r to expand)
+
+● Read(chat/templates/chat/chat.html)
+  ⎿  Read 309 lines (ctrl+r to expand)
+
+● Read(requirements.txt)
+  ⎿  Read 17 lines (ctrl+r to expand)
+
+● Update Todos
+  ⎿  ☒ Analyze project structure and directory layout
+     ☒ Examine models and database schema
+     ☒ Review API structure and endpoints
+     ☒ Analyze frontend components and views
+     ☐ Document key features and functionality
+
+● Das ist ein Django-basiertes Kommunikationssystem für Wohnheime. Hier ist die Analyse:
+
+  Projektstruktur
+
+  - Django-Monolith mit 4 Haupt-Apps
+  - PostgreSQL Datenbank mit Docker-Setup
+  - WebSocket-Chat über Django Channels
+  - Internationalisierung (DE/EN/RU/TR)
+
+  Kernmodelle
+
+  - CustomUser: Erweiterte User-Modell mit Rollen (Inactive → Admin), Themes, Bio
+  - Chat/Message: UUID-basiert, Many-to-Many User-Beziehungen
+  - Room: Wohnheimzimmer-Verwaltung
+  - EmailVerification: Separate Email-Verifikation
+
+  Hauptfeatures
+
+  - Authentifizierung: Login/Register mit Email-Verifikation
+  - Echtzeit-Chat: WebSocket-basiert mit Typing-Indikatoren
+  - Theming: 11 verschiedene Themes (Light/Dark)
+  - Rollenbasierte Zugriffe: 6 Rollen-Stufen
+  - Zimmer-Auswahl: Room-Management für Wohnheime
+  - Responsive Design: Mobile-optimiert
+
+  Technologie-Stack
+
+  - Django 5.2 + DRF
+  - Channels für WebSockets
+  - PostgreSQL + Redis
+  - jQuery für Frontend
+  - Docker + nginx
+
+  Für Next.js Rebuild
+
+  Das System ist gut strukturiert für eine moderne Neuimplementierung mit:
+  - Next.js 14 mit App Router
+  - WebSocket (Socket.io)
+  - Tailwind CSS für Styling
+  - Prisma für Datenbankzugriff
+  - NextAuth.js für Authentifizierung
+
+● Update Todos
+  ⎿  ☒ Analyze project structure and directory layout
+     ☒ Examine models and database schema
+     ☒ Review API structure and endpoints
+     ☒ Analyze frontend components and views
+     ☒ Document key features and functionality
+
+> beschreibe was bei der registrierung besonders ist
+
+● Read(account/views.py)
+  ⎿  Read 241 lines (ctrl+r to expand)
+
+● Read(account/forms.py)
+  ⎿  Read 237 lines (ctrl+r to expand)
+
+● Read(room/views.py)
+  ⎿  Read 42 lines (ctrl+r to expand)
+
+● Bei der Registrierung gibt es einen mehrstufigen Verifikationsprozess:
+
+  Besonderheiten der Registrierung:
+
+  1. Strenge Passwort-Anforderungen
+
+  - Mindestens 16 Zeichen lang
+  - Großbuchstaben, Ziffern und Sonderzeichen erforderlich
+  - Regex-Validierung für alle Kriterien
+
+  2. Zwei separate Zustimmungen
+
+  - Terms of Service (AGB)
+  - Privacy Policy (Datenschutz)
+  - Beide müssen explizit bestätigt werden
+
+  3. Mehrstufiger Verifikationsprozess nach Registrierung:
+
+  Schritt 1: Email-Verifikation
+  - Automatische Email mit UUID-Code
+  - Kann per URL-Link oder manueller Eingabe verifiziert werden
+  - Redirect zu account:email_verification
+
+  Schritt 2: Zimmer-Auswahl
+  - Nach Email-Verifikation → room:select_room
+  - User muss einem Wohnheimzimmer zugeordnet werden
+  - Mixin NoRoomRequiredMixin stellt sicher, dass nur Nutzer ohne Zimmer zugreifen können
+
+  Schritt 3: Tenant-Verifikation
+  - Nach Zimmer-Auswahl → account:verify
+  - Zusätzlicher Verifikationscode (10 Zeichen) für Wohnheimbestätigung
+  - Rollenupgrade von USER zu VERIFIED
+  - Mixin RoomRequiredMixin stellt sicher, dass Nutzer bereits einem Zimmer zugeordnet sind
+
+  4. Rollenbasierte Weiterleitung
+
+  - Neue User starten mit Rolle USER
+  - Erst nach beiden Verifikationen → VERIFIED
+  - Nur VERIFIED User können die Homepage nutzen
+
+  5. Automatischer Login
+
+  - User wird direkt nach Registrierung eingeloggt
+  - Flow leitet durch alle Verifikationsschritte
+
+  Das System stellt sicher, dass nur verifizierte Wohnheimbewohner Zugang zur Plattform haben - eine wichtige Sicherheitsmaßnahme für das Uni-Umfeld.
+
