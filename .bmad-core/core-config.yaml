@@ -1,13 +1,13 @@
 version: 4.29.0
 markdownExploder: true
 prd:
-  prdFile: docs/prd.md
+  prdFile: docs/prd/index.md
   prdVersion: v4
   prdSharded: true
   prdShardedLocation: docs/prd
-  epicFilePattern: epic-{n}*.md
+  epicFilePattern: e{n}*.md
 architecture:
-  architectureFile: docs/architecture.md
+  architectureFile: docs/architecture/index.md
   architectureVersion: v4
   architectureSharded: true
   architectureShardedLocation: docs/architecture
